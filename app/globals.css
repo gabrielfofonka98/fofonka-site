@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Webfonts: Fraunces · Bricolage · Departure Mono ───────────────
+   Loaded via next/font/google in layout.tsx (Fraunces + Bricolage).
+   Departure Mono via @font-face below (jsDelivr free version). */
+
+@font-face {
+  font-family: 'Departure Mono';
+  src: url('https://cdn.jsdelivr.net/gh/MrFlamey/departure-mono@main/fonts/DepartureMono-Regular.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --color-bg: #F4ECDD;
+    --color-bg-secondary: #EDE3CF;
+    --color-text: #181818;
+    --color-text-muted: #5C5650;
+    --color-border: rgba(24, 24, 24, 0.10);
+    --color-mark: #C84B3D;
+    --color-success: #2D5A3D;
+    --color-highlight: #E6B845;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #0E1310;
+      --color-bg-secondary: #161B17;
+      --color-text: #F0EAD8;
+      --color-text-muted: #8A8478;
+      --color-border: rgba(240, 234, 216, 0.10);
+      --color-mark: #E36558;
+      --color-success: #4F8A66;
+      --color-highlight: #F0C757;
+    }
+  }
+
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-feature-settings: 'kern', 'liga', 'calt';
+  }
+
+  ::selection {
+    background-color: var(--color-highlight);
+    color: var(--color-text);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-mark);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Editorial typography helpers */
+  .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-feature-settings: 'kern', 'liga', 'ss01';
+  }
+
+  /* WowHeadline breathing axes — sober (amendment §13.2) */
+  @property --wow-soft {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 30;
+  }
+
+  @keyframes wow-breathe-sober {
+    0%, 100% { --wow-soft: 30; }
+    50%      { --wow-soft: 35; }
+  }
+
+  .wow-headline {
+    font-variation-settings: 'opsz' 144, 'SOFT' var(--wow-soft, 30), 'WONK' 0;
+    animation: wow-breathe-sober 12s ease-in-out infinite;
+  }
+
+  @keyframes cursor-blink {
+    0%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0; }
+  }
+
+  .wow-cursor {
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  /* Editorial rule */
+  .editorial-rule {
+    width: 4rem;
+    height: 1px;
+    background-color: var(--color-mark);
+    border: 0;
+    margin: 1.5rem 0;
+  }
+
+  /* Eyebrow */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)];
+    letter-spacing: 0.1em;
+  }
+
+  /* Reduced motion blanket */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .wow-headline {
+      animation: none;
+      --wow-soft: 30;
+    }
+  }
+}
+
+@layer components {
+  .container-editorial {
+    @apply mx-auto px-6 md:px-10 lg:px-12;
+    max-width: 72rem;
+  }
+
+  .section-y {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+}
