@@ -36,8 +36,8 @@ export function ComoTrabalho() {
   return (
     <section
       id="como-trabalho"
-      className="relative overflow-hidden grid-bg"
-      style={{ backgroundColor: 'var(--color-bg-sepia)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
+      className="relative overflow-hidden grid-bg section-paper"
+      style={{ borderTop: '1px solid rgba(24,24,24,0.10)', borderBottom: '1px solid rgba(24,24,24,0.10)' }}
       aria-labelledby="como-trabalho-heading"
     >
       <div className="container-q4 section-y">

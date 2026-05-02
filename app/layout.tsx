@@ -17,7 +17,7 @@ const bricolage = Bricolage_Grotesque({
   variable: '--font-body',
 });
 
-const THEME = (process.env.NEXT_PUBLIC_THEME ?? 'dark') as 'dark' | 'light';
+const THEME = (process.env.NEXT_PUBLIC_THEME ?? 'dark') as 'dark' | 'light' | 'moss';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabrielfofonka.com.br'),

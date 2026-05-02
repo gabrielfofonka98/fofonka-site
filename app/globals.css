@@ -46,6 +46,49 @@
     --color-highlight: #E6B845;
   }
 
+  /* Variant moss — verde musgo no lugar do amarelo */
+  [data-theme='moss'] {
+    --color-bg: #000000;
+    --color-bg-sepia: #F8F2E8;
+    --color-bg-2: #1B1714;
+    --color-bg-3: #221C18;
+    --color-text: #F0EAD8;
+    --color-text-muted: #9A9388;
+    --color-text-dim: #7F7A70;
+    --color-iron: rgba(240, 234, 216, 0.08);
+    --color-iron-strong: rgba(240, 234, 216, 0.16);
+    --color-mark: #5A9970;          /* mata-300 verde musgo */
+    --color-mark-soft: rgba(90, 153, 112, 0.10);
+    --color-mark-glow: rgba(90, 153, 112, 0.18);
+    --color-success: #4F8A66;
+    --color-highlight: #E6B845;
+  }
+
+  /* ─── Section paper — amarelinho beeeem fraco, página de livro ─── */
+  .section-paper {
+    background-color: #F8F2E8 !important;
+    --color-text: #181818;
+    --color-text-muted: #5C5650;
+    --color-text-dim: #7A6F5E;
+    --color-iron: rgba(24, 24, 24, 0.10);
+    --color-iron-strong: rgba(24, 24, 24, 0.20);
+    --color-bg-3: #EDE3CF;
+    color: #181818;
+  }
+  [data-theme='moss'] .section-paper {
+    /* mark contrast adjustment on paper */
+    --color-mark: #2D5A3D;
+    --color-mark-soft: rgba(45, 90, 61, 0.10);
+    --color-mark-glow: rgba(45, 90, 61, 0.18);
+  }
+  /* Mark adjustment pra mostarda em paper (bom contraste) */
+  [data-theme='dark'] .section-paper,
+  :root .section-paper {
+    --color-mark: #B58514;          /* marker-600 darker mostarda — passa AA em paper */
+    --color-mark-soft: rgba(181, 133, 20, 0.10);
+    --color-mark-glow: rgba(181, 133, 20, 0.18);
+  }
+
   html { scroll-behavior: smooth; background: var(--color-bg); color: var(--color-text); overflow-x: hidden; }
   body { background: var(--color-bg); color: var(--color-text); font-family: 'Bricolage Grotesque', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   ::selection { background: var(--color-highlight); color: var(--color-bg); }

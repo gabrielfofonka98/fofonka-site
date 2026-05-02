@@ -13,8 +13,8 @@ export function Plataformas() {
   return (
     <section
       id="plataformas"
-      className="relative overflow-hidden"
-      style={{ backgroundColor: 'var(--color-bg-sepia)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
+      className="relative overflow-hidden section-paper"
+      style={{ borderTop: '1px solid rgba(24,24,24,0.10)', borderBottom: '1px solid rgba(24,24,24,0.10)' }}
       aria-labelledby="plataformas-heading"
     >
       <div className="container-q4 section-y">
