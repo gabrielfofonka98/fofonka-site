@@ -22,9 +22,9 @@
     --color-text-dim: #7F7A70;
     --color-iron: rgba(240, 234, 216, 0.08);
     --color-iron-strong: rgba(240, 234, 216, 0.16);
-    --color-mark: #EAA395;          /* terracota-200 — salmão suave */
-    --color-mark-soft: rgba(234, 163, 149, 0.10);
-    --color-mark-glow: rgba(234, 163, 149, 0.18);
+    --color-mark: #E6B845;          /* marker-400 — mostarda capa de livro */
+    --color-mark-soft: rgba(230, 184, 69, 0.10);
+    --color-mark-glow: rgba(230, 184, 69, 0.18);
     --color-success: #4F8A66;
     --color-highlight: #E6B845;
   }
@@ -213,7 +213,7 @@
     gap: 8px;
     padding: 12px 24px;
     background: var(--color-mark);
-    color: #FFFFFF;
+    color: #1B1714;
     font-family: 'Departure Mono', ui-monospace, monospace;
     font-size: 13px;
     font-weight: 600;
@@ -223,7 +223,7 @@
     transition: filter 100ms ease, transform 100ms ease, box-shadow 100ms ease;
     box-shadow: 0 0 12px var(--color-mark-glow);
   }
-  [data-theme='dark'] .cta-primary { color: #0E1310; }
+  [data-theme='dark'] .cta-primary { color: #000000; }
   .cta-primary:hover { filter: brightness(1.15); }
   .cta-primary:active { transform: scale(0.98); }
 
