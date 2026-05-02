@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Fraunces, Bricolage_Grotesque } from 'next/font/google';
+import { ScrollProgress } from './components/ScrollProgress';
+import { RevealObserver } from './components/RevealObserver';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -15,25 +17,20 @@ const bricolage = Bricolage_Grotesque({
   variable: '--font-body',
 });
 
+const THEME = (process.env.NEXT_PUBLIC_THEME ?? 'dark') as 'dark' | 'light' | 'moss';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabrielfofonka.com.br'),
   title: 'Gabriel Fofonka',
   description:
-    'Builder solo. SaaS, IA aplicada e automação. Atualmente cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
+    'Engenharia de software com IA aplicada — SaaS, automações e ferramentas internas. Atuação de ponta a ponta com um framework próprio de orquestração de agentes (Cortex).',
   openGraph: {
     title: 'Gabriel Fofonka',
     description:
-      'Builder solo. SaaS, IA aplicada e automação. Atualmente cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
+      'Engenharia de software com IA aplicada — SaaS, automações e ferramentas internas. Atuação de ponta a ponta com um framework próprio de orquestração de agentes (Cortex).',
     url: 'https://gabrielfofonka.com.br',
     siteName: 'Gabriel Fofonka',
-    images: [
-      {
-        url: '/og.png',
-        width: 1200,
-        height: 630,
-        alt: 'Gabriel Fofonka — Construo SaaS, ferramentas de IA aplicada e automações.',
-      },
-    ],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Gabriel Fofonka — Engenheiro de software, IA aplicada e automação.' }],
     locale: 'pt_BR',
     type: 'website',
   },
@@ -41,23 +38,26 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Gabriel Fofonka',
     description:
-      'Builder solo. SaaS, IA aplicada e automação. Atualmente cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
+      'Engenharia de software com IA aplicada — SaaS, automações e ferramentas internas. Atuação de ponta a ponta com um framework próprio de orquestração de agentes (Cortex).',
     images: ['/og.png'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
     apple: '/apple-touch-icon.png',
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${fraunces.variable} ${bricolage.variable}`}>
-      <body>{children}</body>
+    <html lang="pt-BR" data-theme={THEME} className={`${fraunces.variable} ${bricolage.variable}`}>
+      <body>
+        <ScrollProgress />
+        {children}
+        <RevealObserver />
+      </body>
     </html>
   );
 }

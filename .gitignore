@@ -1,6 +1,9 @@
 node_modules
 .next
 out
+out-dark
+out-light
+out-moss
 .DS_Store
 .env*
 !.env.example

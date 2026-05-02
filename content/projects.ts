@@ -1,68 +1,74 @@
-export type Project = {
-  name: string;
-  context: string;
+// Áreas / Serviços v5 — foco em capacidades vendíveis (não em produtos da empresa)
+
+export type Area = {
+  title: string;
+  description: string;
   stack: string[];
-  diferencial: string;
-  status: string;
-  href?: string;
 };
 
 export const projects = {
-  eyebrow: 'Projetos',
-  heading: 'Sistemas em produção e cases relevantes.',
+  eyebrow: 'COMO POSSO AJUDAR',
+  heading: 'Áreas em que *atuo* e onde posso entregar valor.',
   items: [
     {
-      name: 'Cortex Framework',
-      context:
-        'Framework de orquestração multi-agente IA com processo PRD → ADR → Spec → Dev → QA → DevOps forçado.',
-      stack: ['Claude Code SDK', 'Python', 'hooks', 'shell scripts'],
-      diferencial:
-        'Squad completo com persona, escopo e hierarquia por agente. Cada um com prompt, voz e regras comportamentais próprias.',
-      status: 'Privado · em uso pessoal',
-    },
-    {
-      name: 'Lendário LMS',
-      context:
-        'LMS de produto principal — vendas de cursos, alunos, gamificação, certificados.',
+      title: 'SaaS de ponta a ponta',
+      description:
+        'Produto, frontend, backend e infraestrutura. Stack moderna pronta para produção, com staging-first e revisão antes de merge. Entrega de MVP a sistemas em produção com usuários reais.',
       stack: [
         'Next.js',
-        'Supabase (Edge Functions · RLS · Storage)',
+        'React',
+        'TypeScript',
+        'Supabase (RLS · Edge Functions · Storage)',
         'Vercel',
-        'n8n',
-        'Panda Video',
+        'Cloudflare',
       ],
-      diferencial:
-        'Multi-produto rodando paralelo. Webhooks da Panda sobem aulas no sistema sem humano no loop.',
-      status: 'Em produção',
-      href: 'https://app.vidalendaria.com.br',
     },
     {
-      name: 'DatAI',
-      context:
-        'Plataforma de analytics multi-setor — campanhas, attribution, performance de ads.',
-      stack: ['Next.js', 'Supabase', 'BigQuery', 'prompts configuráveis por setor'],
-      diferencial:
-        'Analytics multi-setor com prompts granulares por análise. Cada setor tem prompt específico.',
-      status: 'Em produção · caso privado',
+      title: 'IA aplicada e multi-agente',
+      description:
+        'Integração com LLMs (Claude, GPT) e arquitetura multi-agente para casos onde uma chamada simples não resolve. Framework próprio de orquestração disponível: o Cortex.',
+      stack: [
+        'Claude Code SDK',
+        'OpenAI API',
+        'Multi-agent orchestration',
+        'Cortex (framework próprio)',
+        'Prompt engineering por contexto',
+      ],
     },
     {
-      name: 'Guilda HR',
-      context:
-        'Plataforma RH interna — pesquisa de clima, 1:1, OKR, DISC, gamificação.',
-      stack: ['Next.js', 'Supabase'],
-      diferencial:
-        'Construído como referência a Feedz/Sólides, com foco em times PJ. Pivot consciente: cortei o módulo de contratação por estar fora do escopo de uso real.',
-      status: 'Caso privado',
+      title: 'Automação operacional',
+      description:
+        'Workflows que removem dependência humana de tarefas operacionais — webhooks, integrações entre serviços, processos repetitivos. Reduzo tarefas manuais a zero.',
+      stack: [
+        'n8n',
+        'Webhook integration',
+        'ClickUp API',
+        'Resend',
+        'Supabase Edge Functions',
+      ],
     },
     {
-      name: 'Academia Lendária',
-      context:
-        'Site institucional + templates de email com design system consistente.',
-      stack: ['Next.js', 'Resend', 'Design System próprio'],
-      diferencial:
-        'Templates com identidade visual consistente, calibrados como referência interna de email transacional.',
-      status: 'Em produção',
-      href: 'https://academialendaria.ai',
+      title: 'Auditoria de segurança',
+      description:
+        'Revisão pré-produção: RLS Supabase, CORS, headers, OWASP Top 10, exposição de credenciais. Validação com requests reais — não só leitura de código.',
+      stack: [
+        'RLS audit',
+        'OWASP Top 10',
+        'Security headers',
+        'Supply chain',
+        'PoC ativo de findings',
+      ],
     },
-  ] as Project[],
+    {
+      title: 'Arquitetura e processo de produto',
+      description:
+        'PRD → ADR → Spec → Dev → QA → DevOps. Forço documentação curta antes de código para alinhar stakeholders e economizar retrabalho. Útil para times pequenos que querem operar com rigor sem virar burocracia.',
+      stack: [
+        'PRD writing',
+        'ADR drafting',
+        'Spec for autonomous development',
+        'CTS (cortex task system)',
+      ],
+    },
+  ] as Area[],
 };

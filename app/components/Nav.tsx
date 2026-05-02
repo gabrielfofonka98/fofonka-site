@@ -1,37 +1,47 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 const links = [
   { href: '#sobre', label: 'Sobre' },
-  { href: '#como-penso', label: 'Como penso' },
-  { href: '#como-trabalho', label: 'Como trabalho' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#projetos', label: 'Projetos' },
+  { href: '#como-penso', label: 'Princípios' },
+  { href: '#como-trabalho', label: 'Processo' },
+  { href: '#ajuda', label: 'Como ajudo' },
   { href: '#contato', label: 'Contato' },
 ];
 
 export function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <nav
-      aria-label="Navegação principal"
-      className="sticky top-0 z-40 backdrop-blur-sm bg-[color:var(--color-bg)]/85 border-b border-[var(--color-border)]"
-    >
-      <div className="container-editorial flex items-center justify-between py-4 md:py-5">
-        <a
-          href="#hero"
-          className="font-display text-xl md:text-2xl font-semibold tracking-tight text-[var(--color-text)]"
-        >
-          fofonka
-          <span className="text-[var(--color-mark)]">.</span>
+    <nav aria-label="Navegação principal" className={`nav-fofonka ${scrolled ? 'scrolled' : ''}`}>
+      <div className="container-q4 flex items-center justify-between h-16">
+        <a href="#hero" aria-label="Gabriel Fofonka — home" className="inline-flex items-center">
+          <img src="/svg/logo.svg" alt="" width={128} height={40} className="h-7 md:h-8 w-auto" />
         </a>
-        <ul className="hidden md:flex items-center gap-7 lg:gap-9 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
+        <ul className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>
           {links.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="hover:text-[var(--color-text)] transition-colors duration-150"
-              >
+              <a href={link.href} className="transition-colors duration-150 hover:text-[var(--color-text)]">
                 {link.label}
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href="mailto:gabrielfofonka98@gmail.com"
+              className="cta-primary py-2 px-4 text-[11px]"
+            >
+              Conversar
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
