@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 
 const links = [
   { href: '#sobre', label: 'Sobre' },
-  { href: '#como-penso', label: 'Como penso' },
-  { href: '#como-trabalho', label: 'Como trabalho' },
-  { href: '#skills', label: 'Skills' },
+  { href: '#como-penso', label: 'Princípios' },
+  { href: '#como-trabalho', label: 'Processo' },
   { href: '#projetos', label: 'Projetos' },
   { href: '#contato', label: 'Contato' },
 ];
@@ -22,33 +21,27 @@ export function Nav() {
   }, []);
 
   return (
-    <nav
-      aria-label="Navegação principal"
-      className={`nav-fofonka ${scrolled ? 'scrolled' : ''}`}
-    >
-      <div className="container-editorial flex items-center justify-between py-4 md:py-5">
-        <a
-          href="#hero"
-          className="font-display text-xl md:text-2xl font-semibold tracking-tight"
-          style={{ color: 'var(--color-text)' }}
-        >
+    <nav aria-label="Navegação principal" className={`nav-fofonka ${scrolled ? 'scrolled' : ''}`}>
+      <div className="container-q4 flex items-center justify-between h-16">
+        <a href="#hero" className="font-mono text-base font-bold tracking-[0.12em] uppercase" style={{ color: 'var(--color-mark)' }}>
           fofonka
-          <span style={{ color: 'var(--color-mark)' }}>.</span>
         </a>
-        <ul
-          className="hidden md:flex items-center gap-7 lg:gap-9 font-mono text-xs uppercase tracking-wider"
-          style={{ color: 'var(--color-text-muted)' }}
-        >
+        <ul className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>
           {links.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="transition-colors duration-150 hover:text-[var(--color-text)]"
-              >
+              <a href={link.href} className="transition-colors duration-150 hover:text-[var(--color-text)]">
                 {link.label}
               </a>
             </li>
           ))}
+          <li>
+            <a
+              href="mailto:gabrielfofonka98@gmail.com"
+              className="cta-primary py-2 px-4 text-[11px]"
+            >
+              Bora trocar uma ideia
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

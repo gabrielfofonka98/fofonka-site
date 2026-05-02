@@ -2,16 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-type Star = {
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  size: number;
-  phase: number;
-};
-
-const CONNECT_DISTANCE = 140;
+// Particle rain (Q4-style) — vertical drift downward, terracota in dark / mata in light
+type Drop = { x: number; y: number; speed: number; size: number; alpha: number; color: string };
 
 export function HeroCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,10 +17,13 @@ export function HeroCanvas() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
     const isLight = document.documentElement.dataset.theme === 'light';
-    const count = isMobile ? 25 : 50;
 
-    // Stars: papel-suave em dark, tinta-muted em light
-    const starColor = isLight ? '24, 24, 24' : '240, 234, 216';
+    // Palette: 60% terracota signature + 30% mata + 10% marker
+    const COLORS = isLight
+      ? ['#C84B3D', '#C84B3D', '#C84B3D', '#2D5A3D', '#2D5A3D', '#E6B845']
+      : ['#E36558', '#E36558', '#E36558', '#4F8A66', '#4F8A66', '#F0C757'];
+
+    const count = isMobile ? 60 : 140;
 
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let w = canvas.offsetWidth;
@@ -37,54 +32,38 @@ export function HeroCanvas() {
     canvas.height = h * dpr;
     ctx.scale(dpr, dpr);
 
-    const stars: Star[] = Array.from({ length: count }, () => ({
+    const drops: Drop[] = Array.from({ length: count }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.04,
-      vy: (Math.random() - 0.5) * 0.04,
-      size: Math.random() * 1.3 + 0.5,
-      phase: Math.random() * Math.PI * 2,
+      speed: 0.15 + Math.random() * 0.45,
+      size: 0.6 + Math.random() * 1.6,
+      alpha: 0.35 + Math.random() * 0.5,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
     }));
 
     let rafId = 0;
-    let t = 0;
 
     const tick = () => {
-      ctx.clearRect(0, 0, w, h);
+      // Trail effect — fade clear instead of full clear
+      ctx.fillStyle = isLight ? 'rgba(244,236,221,0.10)' : 'rgba(14,19,16,0.12)';
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = isLight ? 'multiply' : 'screen';
 
-      // Lines first (behind stars)
-      ctx.lineWidth = 1;
-      for (let i = 0; i < stars.length; i++) {
-        for (let j = i + 1; j < stars.length; j++) {
-          const dx = stars[i].x - stars[j].x;
-          const dy = stars[i].y - stars[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECT_DISTANCE) {
-            const opacity = (1 - dist / CONNECT_DISTANCE) * 0.10;
-            ctx.strokeStyle = `rgba(${starColor}, ${opacity.toFixed(3)})`;
-            ctx.beginPath();
-            ctx.moveTo(stars[i].x, stars[i].y);
-            ctx.lineTo(stars[j].x, stars[j].y);
-            ctx.stroke();
-          }
+      for (const d of drops) {
+        d.y += d.speed;
+        if (d.y > h + 4) {
+          d.y = -4;
+          d.x = Math.random() * w;
         }
-      }
-
-      // Stars with twinkle
-      for (const s of stars) {
-        s.x += s.vx;
-        s.y += s.vy;
-        if (s.x < 0 || s.x > w) s.vx *= -1;
-        if (s.y < 0 || s.y > h) s.vy *= -1;
-
-        const twinkle = 0.6 + 0.3 * Math.sin(s.phase + t * 0.001);
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${starColor}, ${twinkle.toFixed(3)})`;
+        ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+        ctx.fillStyle = d.color;
+        ctx.globalAlpha = d.alpha;
         ctx.fill();
       }
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
 
-      t += 16;
       if (!reduced) rafId = requestAnimationFrame(tick);
     };
 
@@ -111,7 +90,7 @@ export function HeroCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 2 }}
+      style={{ opacity: 0.85, mixBlendMode: 'screen', zIndex: 1 }}
       aria-hidden="true"
     />
   );
