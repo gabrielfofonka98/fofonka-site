@@ -41,7 +41,13 @@ export const metadata: Metadata = {
       'Builder solo brasileiro. SaaS, IA aplicada e automação. Cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
     images: ['/og.png'],
   },
-  icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -51,9 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ScrollProgress />
         {children}
         <RevealObserver />
-        {/* Full-bleed overlays — fixed scanlines + vertical streaks */}
-        <div className="fixed inset-0 pointer-events-none crt-scanlines" aria-hidden="true" style={{ zIndex: 60, opacity: 0.5 }} />
-        <div className="fixed inset-0 pointer-events-none vertical-streaks" aria-hidden="true" style={{ zIndex: 59 }} />
       </body>
     </html>
   );

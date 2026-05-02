@@ -4,7 +4,7 @@ export function Sobre() {
   return (
     <section
       id="sobre"
-      className="relative overflow-hidden grid-bg"
+      className="relative overflow-hidden"
       style={{ backgroundColor: 'var(--color-bg)' }}
       aria-labelledby="sobre-heading"
     >

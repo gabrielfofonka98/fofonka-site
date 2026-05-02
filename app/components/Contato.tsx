@@ -16,7 +16,7 @@ export function Contato() {
   return (
     <footer
       id="contato"
-      className="relative overflow-hidden grid-bg"
+      className="relative overflow-hidden"
       style={{ backgroundColor: 'var(--color-bg-2)', borderTop: '1px solid var(--color-iron)' }}
       aria-labelledby="contato-heading"
     >

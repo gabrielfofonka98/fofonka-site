@@ -13,7 +13,7 @@ export function Plataformas() {
   return (
     <section
       id="plataformas"
-      className="relative overflow-hidden grid-bg"
+      className="relative overflow-hidden"
       style={{ backgroundColor: 'var(--color-bg-2)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
       aria-labelledby="plataformas-heading"
     >

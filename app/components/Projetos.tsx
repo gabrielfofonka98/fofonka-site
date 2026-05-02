@@ -13,7 +13,7 @@ export function Projetos() {
   return (
     <section
       id="projetos"
-      className="relative overflow-hidden grid-bg"
+      className="relative overflow-hidden"
       style={{ backgroundColor: 'var(--color-bg)' }}
       aria-labelledby="projetos-heading"
     >

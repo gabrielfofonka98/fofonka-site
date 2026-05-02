@@ -23,8 +23,8 @@ export function Nav() {
   return (
     <nav aria-label="Navegação principal" className={`nav-fofonka ${scrolled ? 'scrolled' : ''}`}>
       <div className="container-q4 flex items-center justify-between h-16">
-        <a href="#hero" className="font-mono text-base font-bold tracking-[0.12em] uppercase" style={{ color: 'var(--color-mark)' }}>
-          fofonka
+        <a href="#hero" aria-label="Gabriel Fofonka — home" className="inline-flex items-center">
+          <img src="/svg/logo.svg" alt="" width={128} height={40} className="h-7 md:h-8 w-auto" />
         </a>
         <ul className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>
           {links.map((link) => (

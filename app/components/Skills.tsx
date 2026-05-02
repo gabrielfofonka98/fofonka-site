@@ -13,7 +13,7 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="relative overflow-hidden grid-bg"
+      className="relative overflow-hidden"
       style={{ backgroundColor: 'var(--color-bg)' }}
       aria-labelledby="skills-heading"
     >

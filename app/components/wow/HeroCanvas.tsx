@@ -2,8 +2,17 @@
 
 import { useEffect, useRef } from 'react';
 
-// Particle rain (Q4-style) — vertical drift downward, terracota in dark / mata in light
-type Drop = { x: number; y: number; speed: number; size: number; alpha: number; color: string };
+// Neural connections — constellation field (papel-suave nodes + connecting lines)
+type Node = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  phase: number;
+};
+
+const CONNECT_DISTANCE = 160;
 
 export function HeroCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,14 +25,10 @@ export function HeroCanvas() {
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
-    const isLight = document.documentElement.dataset.theme === 'light';
+    const count = isMobile ? 35 : 75;
 
-    // Palette: 60% terracota signature + 30% mata + 10% marker
-    const COLORS = isLight
-      ? ['#C84B3D', '#C84B3D', '#C84B3D', '#2D5A3D', '#2D5A3D', '#E6B845']
-      : ['#E36558', '#E36558', '#E36558', '#4F8A66', '#4F8A66', '#F0C757'];
-
-    const count = isMobile ? 60 : 140;
+    // Cor dos nodes: papel-suave creme com glow sutil
+    const NODE_RGB = '240, 234, 216';
 
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let w = canvas.offsetWidth;
@@ -32,38 +37,65 @@ export function HeroCanvas() {
     canvas.height = h * dpr;
     ctx.scale(dpr, dpr);
 
-    const drops: Drop[] = Array.from({ length: count }, () => ({
+    const nodes: Node[] = Array.from({ length: count }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
-      speed: 0.15 + Math.random() * 0.45,
+      vx: (Math.random() - 0.5) * 0.08,
+      vy: (Math.random() - 0.5) * 0.08,
       size: 0.6 + Math.random() * 1.6,
-      alpha: 0.35 + Math.random() * 0.5,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      phase: Math.random() * Math.PI * 2,
     }));
 
     let rafId = 0;
+    let t = 0;
 
     const tick = () => {
-      // Trail effect — fade clear instead of full clear
-      ctx.fillStyle = isLight ? 'rgba(244,236,221,0.10)' : 'rgba(14,19,16,0.12)';
-      ctx.fillRect(0, 0, w, h);
-      ctx.globalCompositeOperation = isLight ? 'multiply' : 'screen';
+      ctx.clearRect(0, 0, w, h);
 
-      for (const d of drops) {
-        d.y += d.speed;
-        if (d.y > h + 4) {
-          d.y = -4;
-          d.x = Math.random() * w;
+      // Linhas conectando nodes próximos
+      ctx.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECT_DISTANCE) {
+            const opacity = (1 - dist / CONNECT_DISTANCE) * 0.18;
+            ctx.strokeStyle = `rgba(${NODE_RGB}, ${opacity.toFixed(3)})`;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
         }
+      }
+
+      // Nodes com twinkle e glow
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+
+        const twinkle = 0.55 + 0.35 * Math.sin(n.phase + t * 0.0008);
+
+        // Halo glow
+        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.size * 4);
+        grad.addColorStop(0, `rgba(${NODE_RGB}, ${(twinkle * 0.5).toFixed(3)})`);
+        grad.addColorStop(1, `rgba(${NODE_RGB}, 0)`);
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
-        ctx.fillStyle = d.color;
-        ctx.globalAlpha = d.alpha;
+        ctx.arc(n.x, n.y, n.size * 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Core point
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${NODE_RGB}, ${twinkle.toFixed(3)})`;
         ctx.fill();
       }
-      ctx.globalAlpha = 1;
-      ctx.globalCompositeOperation = 'source-over';
 
+      t += 16;
       if (!reduced) rafId = requestAnimationFrame(tick);
     };
 
@@ -90,7 +122,7 @@ export function HeroCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.85, mixBlendMode: 'screen', zIndex: 1 }}
+      style={{ zIndex: 1 }}
       aria-hidden="true"
     />
   );

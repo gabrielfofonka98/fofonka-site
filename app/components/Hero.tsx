@@ -44,11 +44,15 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden grid-bg"
       aria-labelledby="hero-headline"
-      style={{ backgroundColor: 'var(--color-bg)' }}
+      style={{ backgroundColor: '#000000' }}
     >
       <HeroCanvas />
 
-      {/* Scan line */}
+      {/* CRT scanlines + vertical streaks — apenas no hero (motion section) */}
+      <div className="absolute inset-0 pointer-events-none crt-scanlines" aria-hidden="true" style={{ zIndex: 2, opacity: 0.4 }} />
+      <div className="absolute inset-0 pointer-events-none vertical-streaks" aria-hidden="true" style={{ zIndex: 2 }} />
+
+      {/* Scan line horizontal */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
         <div
           className="absolute top-0 left-0 w-1/3 h-px animate-scan-line"

@@ -14,18 +14,18 @@
   :root,
   [data-theme='dark'] {
     --color-bg: #0E1310;
-    --color-bg-2: #161B17;
-    --color-bg-3: #1F2520;
+    --color-bg-2: #141A16;
+    --color-bg-3: #1A211C;
     --color-text: #F0EAD8;
-    --color-text-muted: #8A8478;
-    --color-text-dim: #5C5650;
-    --color-iron: rgba(240, 234, 216, 0.10);
-    --color-iron-strong: rgba(240, 234, 216, 0.20);
-    --color-mark: #E36558;
-    --color-mark-soft: rgba(227, 101, 88, 0.12);
-    --color-mark-glow: rgba(227, 101, 88, 0.20);
+    --color-text-muted: #9A9388;
+    --color-text-dim: #7F7A70;
+    --color-iron: rgba(240, 234, 216, 0.08);
+    --color-iron-strong: rgba(240, 234, 216, 0.16);
+    --color-mark: #DD7C6A;
+    --color-mark-soft: rgba(221, 124, 106, 0.10);
+    --color-mark-glow: rgba(221, 124, 106, 0.14);
     --color-success: #4F8A66;
-    --color-highlight: #F0C757;
+    --color-highlight: #E6B845;
   }
 
   [data-theme='light'] {
@@ -122,10 +122,10 @@
     animation: cursor-pulse 1s step-end infinite;
   }
 
-  /* ─── Mark glow on volt-equivalent words ─── */
+  /* ─── Mark glow on key words (subtle) ─── */
   .mark-glow {
     color: var(--color-mark);
-    text-shadow: 0 0 30px var(--color-mark-glow);
+    text-shadow: 0 0 16px var(--color-mark-glow);
   }
 
   /* ─── Reveal-on-scroll ─── */
@@ -219,7 +219,7 @@
     letter-spacing: 0.12em;
     border-radius: 4px;
     transition: filter 100ms ease, transform 100ms ease, box-shadow 100ms ease;
-    box-shadow: 0 0 24px var(--color-mark-glow);
+    box-shadow: 0 0 12px var(--color-mark-glow);
   }
   [data-theme='dark'] .cta-primary { color: #0E1310; }
   .cta-primary:hover { filter: brightness(1.15); }
