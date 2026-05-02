@@ -165,9 +165,9 @@ export function Hero() {
         {/* Metrics */}
         <div className="animate-hero-rise grid grid-cols-3 gap-3 max-w-md" style={{ animationDelay: '700ms' }}>
           {[
-            { v: '5', l: 'SaaS rodando' },
-            { v: '6+', l: 'terminais paralelos' },
-            { v: '1', l: 'framework próprio' },
+            { v: 'Full', l: 'stack end-to-end' },
+            { v: 'IA', l: 'aplicada · multi-agente' },
+            { v: 'BR', l: 'PT-BR · português nativo' },
           ].map((m) => (
             <div
               key={m.l}

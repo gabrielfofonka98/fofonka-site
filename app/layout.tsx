@@ -23,11 +23,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://gabrielfofonka.com.br'),
   title: 'Gabriel Fofonka',
   description:
-    'Engenheiro de software com foco em SaaS, IA aplicada e automação. Cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
+    'Engenharia de software com IA aplicada — SaaS, automações e ferramentas internas. Atuação de ponta a ponta com um framework próprio de orquestração de agentes (Cortex).',
   openGraph: {
     title: 'Gabriel Fofonka',
     description:
-      'Engenheiro de software com foco em SaaS, IA aplicada e automação. Cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
+      'Engenharia de software com IA aplicada — SaaS, automações e ferramentas internas. Atuação de ponta a ponta com um framework próprio de orquestração de agentes (Cortex).',
     url: 'https://gabrielfofonka.com.br',
     siteName: 'Gabriel Fofonka',
     images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Gabriel Fofonka — Engenheiro de software, IA aplicada e automação.' }],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Gabriel Fofonka',
     description:
-      'Engenheiro de software com foco em SaaS, IA aplicada e automação. Cinco produtos em produção e um framework próprio de orquestração de agentes (Cortex).',
+      'Engenharia de software com IA aplicada — SaaS, automações e ferramentas internas. Atuação de ponta a ponta com um framework próprio de orquestração de agentes (Cortex).',
     images: ['/og.png'],
   },
   icons: {

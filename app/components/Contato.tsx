@@ -70,7 +70,7 @@ export function Contato() {
             {contato.copyright}
           </p>
           <p className="font-mono text-[11px] tracking-wider" style={{ color: 'var(--color-text-dim)' }}>
-            5 SaaS rodando · 6+ terminais paralelos · 1 framework próprio
+            Engenharia de software · IA aplicada · automação operacional
           </p>
         </div>
       </div>
