@@ -14,7 +14,7 @@ export function ComoPenso() {
     <section
       id="como-penso"
       className="relative overflow-hidden"
-      style={{ backgroundColor: 'var(--color-bg-2)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
+      style={{ backgroundColor: 'var(--color-bg)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
       aria-labelledby="como-penso-heading"
     >
       <div className="container-q4 section-y">

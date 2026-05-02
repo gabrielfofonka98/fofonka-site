@@ -14,7 +14,7 @@ export function Projetos() {
     <section
       id="projetos"
       className="relative overflow-hidden"
-      style={{ backgroundColor: 'var(--color-bg)' }}
+      style={{ backgroundColor: 'var(--color-bg)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
       aria-labelledby="projetos-heading"
     >
       <div className="container-q4 section-y">

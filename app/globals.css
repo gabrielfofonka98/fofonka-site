@@ -13,23 +13,25 @@
 @layer base {
   :root,
   [data-theme='dark'] {
-    --color-bg: #0E1310;
-    --color-bg-2: #141A16;
-    --color-bg-3: #1A211C;
+    --color-bg: #000000;            /* noite — preto puro */
+    --color-bg-sepia: #1B1714;      /* sépia — Apple Notes dark */
+    --color-bg-2: #1B1714;          /* alias compat */
+    --color-bg-3: #221C18;
     --color-text: #F0EAD8;
     --color-text-muted: #9A9388;
     --color-text-dim: #7F7A70;
     --color-iron: rgba(240, 234, 216, 0.08);
     --color-iron-strong: rgba(240, 234, 216, 0.16);
-    --color-mark: #DD7C6A;
-    --color-mark-soft: rgba(221, 124, 106, 0.10);
-    --color-mark-glow: rgba(221, 124, 106, 0.14);
+    --color-mark: #EAA395;          /* terracota-200 — salmão suave */
+    --color-mark-soft: rgba(234, 163, 149, 0.10);
+    --color-mark-glow: rgba(234, 163, 149, 0.18);
     --color-success: #4F8A66;
     --color-highlight: #E6B845;
   }
 
   [data-theme='light'] {
     --color-bg: #F4ECDD;
+    --color-bg-sepia: #EDE3CF;
     --color-bg-2: #EDE3CF;
     --color-bg-3: #E0D4BB;
     --color-text: #181818;
@@ -146,7 +148,7 @@
   /* ─── Spotlight card hover (Q4 servicos pattern) ─── */
   .spot-card {
     position: relative;
-    background: var(--color-bg-2);
+    background: var(--color-bg-3);
     border: 1px solid var(--color-iron);
     border-radius: 4px;
     padding: 1.75rem 1.5rem;
@@ -186,7 +188,7 @@
     padding: 6px 14px;
     border: 1px solid var(--color-iron);
     border-radius: 999px;
-    background-color: var(--color-bg-2);
+    background-color: var(--color-bg-3);
     width: fit-content;
   }
   .eyebrow-pill::before {

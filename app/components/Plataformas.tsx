@@ -14,7 +14,7 @@ export function Plataformas() {
     <section
       id="plataformas"
       className="relative overflow-hidden"
-      style={{ backgroundColor: 'var(--color-bg-2)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
+      style={{ backgroundColor: 'var(--color-bg-sepia)', borderTop: '1px solid var(--color-iron)', borderBottom: '1px solid var(--color-iron)' }}
       aria-labelledby="plataformas-heading"
     >
       <div className="container-q4 section-y">
