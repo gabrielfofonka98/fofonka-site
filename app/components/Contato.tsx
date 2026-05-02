@@ -7,18 +7,23 @@ export function Contato() {
   return (
     <footer
       id="contato"
-      className="container-editorial section-y border-t border-[var(--color-border)]"
+      className="grid-bg container-editorial section-y"
       aria-labelledby="contato-heading"
+      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="eyebrow">{contato.eyebrow}</p>
+      <p className="reveal eyebrow">[ {contato.eyebrow.toUpperCase()} ]</p>
       <h2
         id="contato-heading"
-        className="mt-4 font-display text-4xl md:text-5xl font-semibold leading-snug -tracking-[0.02em]"
+        className="reveal mt-4 font-display text-4xl md:text-5xl font-semibold leading-snug -tracking-[0.02em]"
+        style={{ ['--reveal-delay' as string]: '120ms' }}
       >
         {contato.heading}
       </h2>
 
-      <div className="mt-10 md:mt-12 max-w-3xl flex flex-col gap-4">
+      <div
+        className="reveal mt-10 md:mt-12 max-w-3xl flex flex-col gap-4"
+        style={{ ['--reveal-delay' as string]: '240ms' }}
+      >
         {primary.map((c) => (
           <a
             key={c.label}
@@ -26,9 +31,12 @@ export function Contato() {
             {...(c.href.startsWith('http')
               ? { target: '_blank', rel: 'noopener noreferrer' }
               : {})}
-            className="inline-flex items-baseline gap-3 font-body text-lg md:text-xl text-[var(--color-text)] underline decoration-[var(--color-mark)] decoration-2 underline-offset-[6px] hover:decoration-[3px] focus-visible:decoration-[3px] transition-[text-decoration-thickness] duration-150 w-fit"
+            className="cta-primary text-lg md:text-xl w-fit"
           >
-            <span className="font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)] no-underline">
+            <span
+              className="font-mono text-xs uppercase tracking-wider no-underline"
+              style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}
+            >
               {c.label}
             </span>
             <span>{c.value}</span>
@@ -36,14 +44,17 @@ export function Contato() {
         ))}
       </div>
 
-      <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-[var(--color-text-muted)]">
+      <ul
+        className="reveal mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm"
+        style={{ ['--reveal-delay' as string]: '360ms', color: 'var(--color-text-muted)' }}
+      >
         {secondary.map((c) => (
           <li key={c.label}>
             <a
               href={c.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--color-text)] transition-colors duration-150"
+              className="transition-colors duration-150 hover:text-[var(--color-text)]"
             >
               {c.label} →
             </a>
@@ -51,7 +62,10 @@ export function Contato() {
         ))}
       </ul>
 
-      <p className="mt-16 md:mt-24 font-mono text-xs text-[var(--color-text-muted)] tracking-wider">
+      <p
+        className="reveal mt-16 md:mt-24 font-mono text-xs tracking-wider"
+        style={{ ['--reveal-delay' as string]: '480ms', color: 'var(--color-text-muted)' }}
+      >
         {contato.copyright}
       </p>
     </footer>

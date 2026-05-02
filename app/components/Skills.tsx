@@ -4,32 +4,38 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="container-editorial section-y border-t border-[var(--color-border)]"
+      className="grid-bg container-editorial section-y"
       aria-labelledby="skills-heading"
+      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="eyebrow">{skills.eyebrow}</p>
+      <p className="reveal eyebrow">[ {skills.eyebrow.toUpperCase()} ]</p>
       <h2
         id="skills-heading"
-        className="mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
+        className="reveal mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
+        style={{ ['--reveal-delay' as string]: '120ms' }}
       >
         {skills.heading}
       </h2>
 
       <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 max-w-5xl">
-        {skills.groups.map((group) => (
-          <div key={group.title}>
+        {skills.groups.map((group, i) => (
+          <div
+            key={group.title}
+            className="reveal"
+            style={{ ['--reveal-delay' as string]: `${(i + 2) * 80}ms` }}
+          >
             <h3 className="font-display text-xl md:text-2xl font-medium tracking-tight">
               {group.title}
             </h3>
-            <p className="mt-2 font-body text-base text-[var(--color-text-muted)] leading-relaxed">
+            <p
+              className="mt-2 font-body text-base leading-relaxed"
+              style={{ color: 'var(--color-text-muted)' }}
+            >
               {group.body}
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-2 gap-y-2">
               {group.tags.map((tag) => (
-                <li
-                  key={tag}
-                  className="font-mono text-xs text-[var(--color-text)] border border-[var(--color-border)] rounded-sm px-2 py-1"
-                >
+                <li key={tag} className="tag-mono">
                   {tag}
                 </li>
               ))}

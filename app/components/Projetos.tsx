@@ -1,26 +1,34 @@
 import { projects } from '@/content/projects';
+import { CornerAccents } from './CornerAccents';
 
 export function Projetos() {
   return (
     <section
       id="projetos"
-      className="container-editorial section-y border-t border-[var(--color-border)]"
+      className="grid-bg container-editorial section-y"
       aria-labelledby="projetos-heading"
+      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="eyebrow">{projects.eyebrow}</p>
+      <p className="reveal eyebrow">[ {projects.eyebrow.toUpperCase()} ]</p>
       <h2
         id="projetos-heading"
-        className="mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
+        className="reveal mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
+        style={{ ['--reveal-delay' as string]: '120ms' }}
       >
         {projects.heading}
       </h2>
 
       <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 max-w-5xl">
-        {projects.items.map((project) => (
+        {projects.items.map((project, i) => (
           <article
             key={project.name}
-            className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-6"
+            className="card-hover reveal flex flex-col gap-3 pt-6 pb-6 px-4"
+            style={{
+              ['--reveal-delay' as string]: `${(i + 2) * 100}ms`,
+              borderTop: '1px solid var(--color-border)',
+            }}
           >
+            <CornerAccents />
             <header className="flex items-baseline justify-between gap-3">
               <h3 className="font-display text-xl md:text-2xl font-medium tracking-tight">
                 {project.name}
@@ -30,29 +38,33 @@ export function Projetos() {
                   href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-xs uppercase tracking-wider text-[var(--color-mark)] hover:underline underline-offset-4"
+                  className="font-mono text-xs uppercase tracking-wider hover:underline underline-offset-4"
+                  style={{ color: 'var(--color-mark)' }}
                 >
                   visitar →
                 </a>
               ) : null}
             </header>
-            <p className="font-body text-base text-[var(--color-text)] leading-relaxed">
+            <p className="font-body text-base leading-relaxed">
               {project.context}
             </p>
-            <p className="font-body text-base text-[var(--color-text-muted)] leading-relaxed">
+            <p
+              className="font-body text-base leading-relaxed"
+              style={{ color: 'var(--color-text-muted)' }}
+            >
               {project.diferencial}
             </p>
             <ul className="mt-1 flex flex-wrap gap-1.5">
               {project.stack.map((tag) => (
-                <li
-                  key={tag}
-                  className="font-mono text-2xs text-[var(--color-text-muted)] border border-[var(--color-border)] rounded-sm px-1.5 py-0.5"
-                >
+                <li key={tag} className="tag-mono">
                   {tag}
                 </li>
               ))}
             </ul>
-            <p className="font-mono text-xs text-[var(--color-text-muted)] mt-1">
+            <p
+              className="font-mono text-xs mt-1"
+              style={{ color: 'var(--color-text-muted)' }}
+            >
               {project.status}
             </p>
           </article>

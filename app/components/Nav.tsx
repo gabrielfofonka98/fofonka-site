@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 const links = [
   { href: '#sobre', label: 'Sobre' },
   { href: '#como-penso', label: 'Como penso' },
@@ -8,25 +12,38 @@ const links = [
 ];
 
 export function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <nav
       aria-label="Navegação principal"
-      className="sticky top-0 z-40 backdrop-blur-sm bg-[color:var(--color-bg)]/85 border-b border-[var(--color-border)]"
+      className={`nav-fofonka ${scrolled ? 'scrolled' : ''}`}
     >
       <div className="container-editorial flex items-center justify-between py-4 md:py-5">
         <a
           href="#hero"
-          className="font-display text-xl md:text-2xl font-semibold tracking-tight text-[var(--color-text)]"
+          className="font-display text-xl md:text-2xl font-semibold tracking-tight"
+          style={{ color: 'var(--color-text)' }}
         >
           fofonka
-          <span className="text-[var(--color-mark)]">.</span>
+          <span style={{ color: 'var(--color-mark)' }}>.</span>
         </a>
-        <ul className="hidden md:flex items-center gap-7 lg:gap-9 font-mono text-xs uppercase tracking-wider text-[var(--color-text-muted)]">
+        <ul
+          className="hidden md:flex items-center gap-7 lg:gap-9 font-mono text-xs uppercase tracking-wider"
+          style={{ color: 'var(--color-text-muted)' }}
+        >
           {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="hover:text-[var(--color-text)] transition-colors duration-150"
+                className="transition-colors duration-150 hover:text-[var(--color-text)]"
               >
                 {link.label}
               </a>

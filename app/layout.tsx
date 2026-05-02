@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Fraunces, Bricolage_Grotesque } from 'next/font/google';
+import { ScrollProgress } from './components/ScrollProgress';
+import { RevealObserver } from './components/RevealObserver';
 import './globals.css';
 
 const fraunces = Fraunces({
@@ -14,6 +16,8 @@ const bricolage = Bricolage_Grotesque({
   display: 'swap',
   variable: '--font-body',
 });
+
+const THEME = (process.env.NEXT_PUBLIC_THEME ?? 'dark') as 'dark' | 'light';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabrielfofonka.com.br'),
@@ -56,8 +60,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${fraunces.variable} ${bricolage.variable}`}>
-      <body>{children}</body>
+    <html lang="pt-BR" data-theme={THEME} className={`${fraunces.variable} ${bricolage.variable}`}>
+      <body className={`font-body antialiased`}>
+        <ScrollProgress />
+        {children}
+        <RevealObserver />
+        <div className="scanlines" aria-hidden="true" />
+      </body>
     </html>
   );
 }

@@ -9,6 +9,9 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  env: {
+    NEXT_PUBLIC_THEME: process.env.NEXT_PUBLIC_THEME ?? 'dark',
+  },
 };
 
 export default nextConfig;
