@@ -3,6 +3,7 @@ node_modules
 out
 out-dark
 out-light
+out-moss
 .DS_Store
 .env*
 !.env.example
