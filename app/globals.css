@@ -74,14 +74,118 @@
     font-feature-settings: 'kern', 'liga', 'ss01';
   }
 
-  /* ─── Eyebrow brackets ─── */
-  .eyebrow {
+  /* ─── Eyebrow pill (V2.1) ─── */
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-family: 'Departure Mono', 'JetBrains Mono', ui-monospace, monospace;
     font-size: 11px;
     font-weight: 500;
     color: var(--color-text-muted);
     letter-spacing: 0.18em;
     text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: rgba(240, 234, 216, 0.02);
+    width: fit-content;
+  }
+  [data-theme='light'] .eyebrow-pill {
+    background-color: rgba(24, 24, 24, 0.02);
+  }
+  .eyebrow-pill::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--color-mark);
+    flex-shrink: 0;
+  }
+
+  /* ─── Italic display (V2.1) ─── */
+  .font-italic {
+    font-style: italic;
+    font-variation-settings: 'opsz' 144, 'SOFT' 80, 'WONK' 0;
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  /* ─── Glass card (V2.1) ─── */
+  .glass-card {
+    position: relative;
+    background-color: rgba(22, 27, 23, 0.40);
+    border: 1px solid rgba(240, 234, 216, 0.08);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    backdrop-filter: blur(20px) saturate(120%);
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    isolation: isolate;
+  }
+  [data-theme='light'] .glass-card {
+    background-color: rgba(248, 242, 232, 0.50);
+    border-color: rgba(24, 24, 24, 0.08);
+  }
+  @media (min-width: 768px) {
+    .glass-card { padding: 4rem 3.5rem; }
+  }
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(240, 234, 216, 0.20) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+  [data-theme='light'] .glass-card::before {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(24, 24, 24, 0.10) 50%,
+      transparent 100%
+    );
+  }
+
+  /* ─── Section bg alternance (V2.1) ─── */
+  .section-darker {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ─── Custom scrollbar (V2.1) ─── */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+    border-left: 1px solid var(--color-border);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(227, 101, 88, 0.20);
+    border-radius: 0;
+  }
+  [data-theme='light'] ::-webkit-scrollbar-thumb {
+    background: rgba(200, 75, 61, 0.25);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(227, 101, 88, 0.45);
+  }
+  [data-theme='light'] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 75, 61, 0.55);
+  }
+  html {
+    scrollbar-color: rgba(227, 101, 88, 0.30) var(--color-bg);
+    scrollbar-width: thin;
+  }
+  [data-theme='light'] html {
+    scrollbar-color: rgba(200, 75, 61, 0.35) var(--color-bg);
   }
 
   /* ─── Hero canvas + gradient ─── */
@@ -95,14 +199,19 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      ellipse 80% 60% at 30% 40%,
-      var(--color-mark-soft) 0%,
-      transparent 60%
-    );
-    animation: hero-glow-shift 40s ease-in-out infinite;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 30%, var(--color-mark-soft) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 85% 70%, rgba(227, 101, 88, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 35% at 50% 90%, rgba(227, 101, 88, 0.04) 0%, transparent 50%);
+    animation: hero-glow-shift 50s ease-in-out infinite;
     z-index: 0;
     pointer-events: none;
+  }
+  [data-theme='light'] .hero-section::before {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 30%, var(--color-mark-soft) 0%, transparent 50%),
+      radial-gradient(ellipse 40% 30% at 85% 70%, rgba(200, 75, 61, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 35% at 50% 90%, rgba(200, 75, 61, 0.04) 0%, transparent 50%);
   }
 
   .hero-section::after {

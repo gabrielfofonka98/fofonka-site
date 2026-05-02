@@ -8,8 +8,8 @@ export type Project = {
 };
 
 export const projects = {
-  eyebrow: 'Projetos',
-  heading: 'Sistemas em produção e cases relevantes.',
+  eyebrow: 'PROJETOS · CASES',
+  heading: '*Sistemas em produção* e cases relevantes.',
   items: [
     {
       name: 'Cortex Framework',

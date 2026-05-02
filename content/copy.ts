@@ -1,17 +1,17 @@
 // Copy v3 (Faísca pós-pivot sóbrio) — extraído de docs/design/personal-page-copy.md
 
 export const hero = {
-  eyebrow: '[ BUILDER · 2026 ]',
-  headline: 'E aí! Gabriel Fofonka aqui.',
+  eyebrow: 'BUILDER · 2026',
+  headline: 'E aí! Gabriel *Fofonka* aqui.',
   subheadline:
-    'Construo SaaS, ferramentas de IA aplicada e automações. Tenho cinco produtos em produção e um framework próprio de orquestração de agentes IA.',
+    'Construo SaaS, ferramentas de IA aplicada e automações. Tenho **cinco produtos em produção** e um **framework próprio** de orquestração de agentes IA.',
   ctaPrimary: { label: 'Bora trocar uma ideia', href: 'mailto:gabrielfofonka98@gmail.com' },
   ctaSecondary: { label: 'Newsletter', href: '#contato' },
   wordmark: 'Gabriel Fofonka',
 };
 
 export const sobre = {
-  eyebrow: 'Sobre',
+  eyebrow: 'SOBRE',
   paragraphs: [
     'Trabalho com software faz uns anos, hoje com foco em SaaS, IA aplicada e automação. Rodo cinco produtos em paralelo e mantenho um framework próprio de orquestração de agentes — o Cortex — que uso todo dia.',
     'Opero como builder solo: cuido de produto, código e infraestrutura. Quando alguma camada precisa de mais cabeça do que mão, encosto num squad de agentes IA com escopos definidos — PM, arquitetura, dev, QA, DevOps. Cada um cuida de uma camada.',
@@ -20,8 +20,8 @@ export const sobre = {
 };
 
 export const comoPenso = {
-  eyebrow: 'Como penso',
-  heading: 'Princípios que guiam minhas decisões técnicas.',
+  eyebrow: 'COMO PENSO',
+  heading: '*Princípios* que guiam minhas decisões técnicas.',
   principles: [
     {
       title: 'Pragmatismo antes de moda',
@@ -47,8 +47,8 @@ export const comoPenso = {
 };
 
 export const comoTrabalho = {
-  eyebrow: 'Como trabalho',
-  heading: 'Processo em cinco etapas.',
+  eyebrow: 'COMO TRABALHO',
+  heading: '*Processo* em cinco etapas.',
   steps: [
     {
       title: 'Discovery primeiro',
@@ -74,8 +74,8 @@ export const comoTrabalho = {
 };
 
 export const contato = {
-  eyebrow: 'Contato',
-  heading: 'Bora trocar uma ideia?',
+  eyebrow: 'CONTATO',
+  heading: 'Bora *trocar uma ideia*?',
   channels: [
     { label: 'Email', value: 'gabrielfofonka98@gmail.com', href: 'mailto:gabrielfofonka98@gmail.com', primary: true },
     { label: 'WhatsApp', value: 'Conversar no WhatsApp', href: 'https://wa.me/5551995763576', primary: true },

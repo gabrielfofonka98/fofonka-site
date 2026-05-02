@@ -1,6 +1,6 @@
 export const skills = {
-  eyebrow: 'Skills',
-  heading: 'Stack que uso em produção.',
+  eyebrow: 'SKILLS · STACK',
+  heading: '*Stack* que uso em produção.',
   groups: [
     {
       title: 'Frontend',

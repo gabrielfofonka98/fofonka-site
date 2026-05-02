@@ -1,20 +1,28 @@
 import { comoPenso } from '@/content/copy';
 
+function renderHeading(text: string) {
+  return text.split(/(\*[^*]+\*)/).map((part, i) => {
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={i} className="font-italic">{part.slice(1, -1)}</em>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 export function ComoPenso() {
   return (
     <section
       id="como-penso"
       className="grid-bg container-editorial section-y"
       aria-labelledby="como-penso-heading"
-      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="reveal eyebrow">[ {comoPenso.eyebrow.toUpperCase()} ]</p>
+      <p className="reveal eyebrow-pill">{comoPenso.eyebrow}</p>
       <h2
         id="como-penso-heading"
         className="reveal mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
         style={{ ['--reveal-delay' as string]: '120ms' }}
       >
-        {comoPenso.heading}
+        {renderHeading(comoPenso.heading)}
       </h2>
 
       <ol className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl">

@@ -1,21 +1,29 @@
 import { projects } from '@/content/projects';
 import { CornerAccents } from './CornerAccents';
 
+function renderHeading(text: string) {
+  return text.split(/(\*[^*]+\*)/).map((part, i) => {
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={i} className="font-italic">{part.slice(1, -1)}</em>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 export function Projetos() {
   return (
     <section
       id="projetos"
       className="grid-bg container-editorial section-y"
       aria-labelledby="projetos-heading"
-      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="reveal eyebrow">[ {projects.eyebrow.toUpperCase()} ]</p>
+      <p className="reveal eyebrow-pill">{projects.eyebrow}</p>
       <h2
         id="projetos-heading"
         className="reveal mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
         style={{ ['--reveal-delay' as string]: '120ms' }}
       >
-        {projects.heading}
+        {renderHeading(projects.heading)}
       </h2>
 
       <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-12 max-w-5xl">

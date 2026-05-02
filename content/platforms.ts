@@ -1,6 +1,6 @@
 export const platforms = {
-  eyebrow: 'Ferramentas',
-  heading: 'O que uso pra construir e operar os produtos.',
+  eyebrow: 'FERRAMENTAS',
+  heading: 'O que uso pra *construir e operar* os produtos.',
   items: [
     { name: 'Claude Code', body: 'Terminal de trabalho principal — múltiplos terminais em paralelo.' },
     { name: 'Supabase', body: 'Backend e banco — Edge Functions, RLS e Storage.' },

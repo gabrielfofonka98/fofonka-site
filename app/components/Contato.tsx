@@ -1,5 +1,14 @@
 import { contato } from '@/content/copy';
 
+function renderHeading(text: string) {
+  return text.split(/(\*[^*]+\*)/).map((part, i) => {
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={i} className="font-italic">{part.slice(1, -1)}</em>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 export function Contato() {
   const primary = contato.channels.filter((c) => c.primary);
   const secondary = contato.channels.filter((c) => !c.primary);
@@ -7,21 +16,20 @@ export function Contato() {
   return (
     <footer
       id="contato"
-      className="grid-bg container-editorial section-y"
+      className="grid-bg section-darker container-editorial section-y"
       aria-labelledby="contato-heading"
-      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="reveal eyebrow">[ {contato.eyebrow.toUpperCase()} ]</p>
+      <p className="reveal eyebrow-pill">{contato.eyebrow}</p>
       <h2
         id="contato-heading"
         className="reveal mt-4 font-display text-4xl md:text-5xl font-semibold leading-snug -tracking-[0.02em]"
         style={{ ['--reveal-delay' as string]: '120ms' }}
       >
-        {contato.heading}
+        {renderHeading(contato.heading)}
       </h2>
 
       <div
-        className="reveal mt-10 md:mt-12 max-w-3xl flex flex-col gap-4"
+        className="glass-card reveal mt-10 md:mt-12 max-w-3xl flex flex-col gap-4"
         style={{ ['--reveal-delay' as string]: '240ms' }}
       >
         {primary.map((c) => (
@@ -34,7 +42,7 @@ export function Contato() {
             className="cta-primary text-lg md:text-xl w-fit"
           >
             <span
-              className="font-mono text-xs uppercase tracking-wider no-underline"
+              className="font-mono text-xs uppercase tracking-wider"
               style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}
             >
               {c.label}

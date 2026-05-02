@@ -1,20 +1,28 @@
 import { skills } from '@/content/skills';
 
+function renderHeading(text: string) {
+  return text.split(/(\*[^*]+\*)/).map((part, i) => {
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={i} className="font-italic">{part.slice(1, -1)}</em>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 export function Skills() {
   return (
     <section
       id="skills"
       className="grid-bg container-editorial section-y"
       aria-labelledby="skills-heading"
-      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="reveal eyebrow">[ {skills.eyebrow.toUpperCase()} ]</p>
+      <p className="reveal eyebrow-pill">{skills.eyebrow}</p>
       <h2
         id="skills-heading"
         className="reveal mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
         style={{ ['--reveal-delay' as string]: '120ms' }}
       >
-        {skills.heading}
+        {renderHeading(skills.heading)}
       </h2>
 
       <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 max-w-5xl">

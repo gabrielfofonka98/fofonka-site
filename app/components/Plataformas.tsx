@@ -1,20 +1,28 @@
 import { platforms } from '@/content/platforms';
 
+function renderHeading(text: string) {
+  return text.split(/(\*[^*]+\*)/).map((part, i) => {
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
+      return <em key={i} className="font-italic">{part.slice(1, -1)}</em>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 export function Plataformas() {
   return (
     <section
       id="plataformas"
-      className="grid-bg container-editorial section-y"
+      className="grid-bg section-darker container-editorial section-y"
       aria-labelledby="plataformas-heading"
-      style={{ borderTop: '1px solid var(--color-border)' }}
     >
-      <p className="reveal eyebrow">[ {platforms.eyebrow.toUpperCase()} ]</p>
+      <p className="reveal eyebrow-pill">{platforms.eyebrow}</p>
       <h2
         id="plataformas-heading"
         className="reveal mt-4 max-w-2xl font-display text-3xl md:text-4xl font-medium leading-snug -tracking-[0.01em]"
         style={{ ['--reveal-delay' as string]: '120ms' }}
       >
-        {platforms.heading}
+        {renderHeading(platforms.heading)}
       </h2>
 
       <ul
