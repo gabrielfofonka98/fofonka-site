@@ -3,19 +3,19 @@
 
 export const hero = {
   eyebrow: 'PORTFÓLIO · 2026',
-  headline: 'Construo *produtos digitais* com IA.',
+  headline: 'Engenharia de *software* com IA aplicada.',
   subheadline:
-    'Engenharia de software com foco em SaaS, IA aplicada e automação. **Cinco produtos em produção** e um **framework próprio** de orquestração de agentes IA.',
+    'Atuo de ponta a ponta — produto, código e infraestrutura. Construo **SaaS, automações e ferramentas internas** com um time virtual de agentes IA (Cortex, framework próprio).',
   ctaPrimary: { label: 'Conversar', href: 'mailto:gabrielfofonka98@gmail.com' },
-  ctaSecondary: { label: 'Ver projetos', href: '#projetos' },
+  ctaSecondary: { label: 'Como posso ajudar', href: '#ajuda' },
   wordmark: 'Gabriel Fofonka',
 };
 
 export const sobre = {
   eyebrow: 'SOBRE',
   paragraphs: [
-    'Trabalho com software há alguns anos, hoje com foco em SaaS, IA aplicada e automação. Mantenho cinco produtos em paralelo e um framework próprio de orquestração de agentes — o Cortex — em uso diário.',
-    'Atuo de ponta a ponta: produto, código e infraestrutura. Quando alguma camada exige profundidade adicional, recorro a um time de agentes IA com escopos definidos — PM, arquitetura, dev, QA, DevOps. Cada um responsável por uma camada.',
+    'Trabalho com software há alguns anos. Hoje atuo principalmente em SaaS, IA aplicada e automação operacional — frente, fundo, infraestrutura.',
+    'Quando alguma camada exige profundidade adicional, recorro a um time de agentes IA com escopos definidos: PM, arquitetura, dev, QA, DevOps. Cada um responsável por uma camada. A orquestração é feita por um framework próprio — o Cortex — que mantenho em uso diário.',
     'Recomendo apenas o que já validei em produção. Toda recomendação tem print, log ou repositório por trás. Sem isso, é especulação.',
   ],
 };

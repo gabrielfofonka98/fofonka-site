@@ -24,16 +24,16 @@ function renderSub(text: string) {
 }
 
 const cliLines = [
-  { text: '$ fofonka --whoami', cls: 'mono' },
+  { text: '$ fofonka --capabilities', cls: 'mono' },
   { text: ' ', cls: 'sep' },
   { text: '  Gabriel Fofonka', cls: 'mark', d: 2 },
-  { text: '  Engenheiro de software · SaaS · IA aplicada', cls: 'muted', d: 3 },
+  { text: '  Engenharia de software · IA aplicada · automação', cls: 'muted', d: 3 },
   { text: ' ', cls: 'sep' },
-  { text: '  produtos ativos:', cls: 'dim', d: 5 },
-  { text: '    cortex      · framework multi-agente IA próprio', cls: 'muted', d: 6 },
-  { text: '    lendario    · LMS em produção', cls: 'muted', d: 7 },
-  { text: '    datai       · analytics multi-setor', cls: 'muted', d: 8 },
-  { text: '    +2 produtos · em paralelo', cls: 'muted', d: 9 },
+  { text: '  áreas de atuação:', cls: 'dim', d: 5 },
+  { text: '    saas         · ponta a ponta com staging-first', cls: 'muted', d: 6 },
+  { text: '    ia aplicada  · multi-agente, llms, automação', cls: 'muted', d: 7 },
+  { text: '    auditoria    · rls · cors · owasp top 10', cls: 'muted', d: 8 },
+  { text: '    arquitetura  · prd → adr → spec → dev', cls: 'muted', d: 9 },
   { text: ' ', cls: 'sep' },
   { text: '  Disponível para conversar.', cls: 'muted', d: 11, cursor: true },
 ];
