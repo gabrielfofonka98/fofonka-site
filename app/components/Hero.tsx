@@ -24,18 +24,18 @@ function renderSub(text: string) {
 }
 
 const cliLines = [
-  { text: '$ fofonka --whoami', cls: 'text-mono' },
+  { text: '$ fofonka --whoami', cls: 'mono' },
   { text: ' ', cls: 'sep' },
   { text: '  Gabriel Fofonka', cls: 'mark', d: 2 },
-  { text: '  Builder solo · brasileiro · IA aplicada', cls: 'muted', d: 3 },
+  { text: '  Engenheiro de software · SaaS · IA aplicada', cls: 'muted', d: 3 },
   { text: ' ', cls: 'sep' },
-  { text: '  stack atual:', cls: 'dim', d: 5 },
+  { text: '  produtos ativos:', cls: 'dim', d: 5 },
   { text: '    cortex      · framework multi-agente IA próprio', cls: 'muted', d: 6 },
   { text: '    lendario    · LMS em produção', cls: 'muted', d: 7 },
   { text: '    datai       · analytics multi-setor', cls: 'muted', d: 8 },
-  { text: '    +2 produtos · rodando paralelo', cls: 'muted', d: 9 },
+  { text: '    +2 produtos · em paralelo', cls: 'muted', d: 9 },
   { text: ' ', cls: 'sep' },
-  { text: '  Bora trocar uma ideia.', cls: 'muted', d: 11, cursor: true },
+  { text: '  Disponível para conversar.', cls: 'muted', d: 11, cursor: true },
 ];
 
 export function Hero() {

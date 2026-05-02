@@ -12,8 +12,8 @@ export function Sobre() {
           <div>
             <p className="reveal eyebrow-pill">{sobre.eyebrow}</p>
             <h2 id="sobre-heading" className="reveal mt-6 font-display font-medium leading-tight -tracking-[0.02em]" style={{ ['--reveal-delay' as string]: '120ms', fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
-              Builder solo<br/>
-              <em className="font-italic" style={{ color: 'var(--color-mark)' }}>brasileiro.</em>
+              Software, IA<br/>
+              e <em className="font-italic" style={{ color: 'var(--color-mark)' }}>automação.</em>
             </h2>
           </div>
 

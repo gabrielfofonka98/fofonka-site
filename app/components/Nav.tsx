@@ -39,7 +39,7 @@ export function Nav() {
               href="mailto:gabrielfofonka98@gmail.com"
               className="cta-primary py-2 px-4 text-[11px]"
             >
-              Bora trocar uma ideia
+              Conversar
             </a>
           </li>
         </ul>
