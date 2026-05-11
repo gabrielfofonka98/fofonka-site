@@ -32,6 +32,8 @@ const config: Config = {
         },
         marker: {
           400: '#E6B845',
+          500: '#D5A025',
+          600: '#B58514',
           bright: '#F0C757',
         },
       },
