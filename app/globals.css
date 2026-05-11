@@ -22,11 +22,11 @@
     --color-text-dim: #7F7A70;
     --color-iron: rgba(240, 234, 216, 0.08);
     --color-iron-strong: rgba(240, 234, 216, 0.16);
-    --color-mark: #E6B845;          /* marker-400 — mostarda capa de livro */
-    --color-mark-soft: rgba(230, 184, 69, 0.10);
-    --color-mark-glow: rgba(230, 184, 69, 0.18);
+    --color-mark: #F0C757;          /* marker-bright — amarelo editorial do CTS */
+    --color-mark-soft: rgba(240, 199, 87, 0.12);
+    --color-mark-glow: rgba(240, 199, 87, 0.20);
     --color-success: #4F8A66;
-    --color-highlight: #E6B845;
+    --color-highlight: #F0C757;
   }
 
   [data-theme='light'] {
@@ -325,11 +325,11 @@
   /* ─── Custom scrollbar ─── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--color-bg); border-left: 1px solid var(--color-iron); }
-  ::-webkit-scrollbar-thumb { background: rgba(227, 101, 88, 0.20); }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(227, 101, 88, 0.45); }
+  ::-webkit-scrollbar-thumb { background: rgba(240, 199, 87, 0.22); }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(240, 199, 87, 0.48); }
   [data-theme='light'] ::-webkit-scrollbar-thumb { background: rgba(200, 75, 61, 0.25); }
   [data-theme='light'] ::-webkit-scrollbar-thumb:hover { background: rgba(200, 75, 61, 0.55); }
-  html { scrollbar-color: rgba(227, 101, 88, 0.30) var(--color-bg); scrollbar-width: thin; }
+  html { scrollbar-color: rgba(240, 199, 87, 0.34) var(--color-bg); scrollbar-width: thin; }
 
   /* ─── Reduced motion ─── */
   @media (prefers-reduced-motion: reduce) {
