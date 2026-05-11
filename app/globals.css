@@ -170,7 +170,7 @@
   /* ─── Mark glow on key words (subtle) ─── */
   .mark-glow {
     color: var(--color-mark);
-    text-shadow: 0 0 16px var(--color-mark-glow);
+    text-shadow: 0 0 10px var(--color-mark-glow);
   }
 
   /* ─── Reveal-on-scroll ─── */
@@ -264,10 +264,13 @@
     letter-spacing: 0.12em;
     border-radius: 4px;
     transition: filter 100ms ease, transform 100ms ease, box-shadow 100ms ease;
-    box-shadow: 0 0 12px var(--color-mark-glow);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 8px var(--color-mark-soft);
   }
   [data-theme='dark'] .cta-primary { color: #000000; }
-  .cta-primary:hover { filter: brightness(1.15); }
+  .cta-primary:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26), 0 0 10px var(--color-mark-soft);
+  }
   .cta-primary:active { transform: scale(0.98); }
 
   .cta-secondary {

@@ -49,22 +49,23 @@ export function Hero() {
       <HeroCanvas />
 
       {/* CRT scanlines + vertical streaks — apenas no hero (motion section) */}
-      <div className="absolute inset-0 pointer-events-none crt-scanlines" aria-hidden="true" style={{ zIndex: 2, opacity: 0.4 }} />
-      <div className="absolute inset-0 pointer-events-none vertical-streaks" aria-hidden="true" style={{ zIndex: 2 }} />
+      <div className="absolute inset-0 pointer-events-none crt-scanlines" aria-hidden="true" style={{ zIndex: 2, opacity: 0.22 }} />
+      <div className="absolute inset-0 pointer-events-none vertical-streaks" aria-hidden="true" style={{ zIndex: 2, opacity: 0.45 }} />
 
       {/* Scan line horizontal */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
         <div
           className="absolute top-0 left-0 w-1/3 h-px animate-scan-line"
           style={{
-            background: 'linear-gradient(90deg, transparent, var(--color-mark-glow), transparent)',
+            background: 'linear-gradient(90deg, transparent, var(--color-mark-soft), transparent)',
+            opacity: 0.65,
           }}
         />
       </div>
 
       {/* Hero content */}
       <div className="relative container-q4 w-full pt-32 pb-20 md:pt-40 md:pb-28" style={{ zIndex: 10 }}>
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(360px,480px)] xl:grid-cols-[minmax(0,1fr)_minmax(420px,520px)]">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(340px,440px)] xl:grid-cols-[minmax(0,1fr)_minmax(380px,480px)]">
           <div className="min-w-0">
             {/* Top mark */}
             <div className="animate-hero-rise mb-6" style={{ animationDelay: '100ms' }}>
@@ -116,7 +117,7 @@ export function Hero() {
             </div>
 
             {/* Metrics */}
-            <div className="animate-hero-rise grid grid-cols-3 gap-3 max-w-md" style={{ animationDelay: '700ms' }}>
+            <div className="animate-hero-rise grid grid-cols-3 gap-2 max-w-md sm:gap-3" style={{ animationDelay: '700ms' }}>
               {[
                 { v: 'Full', l: 'stack end-to-end' },
                 { v: 'IA', l: 'aplicada · multi-agente' },
@@ -124,16 +125,16 @@ export function Hero() {
               ].map((m) => (
                 <div
                   key={m.l}
-                  className="p-3 text-center rounded-sm backdrop-blur-sm"
+                  className="min-h-[104px] p-2 text-center rounded-sm backdrop-blur-sm sm:min-h-[90px] sm:p-3"
                   style={{
                     border: '1px solid var(--color-iron)',
                     background: 'color-mix(in oklab, var(--color-bg) 40%, transparent)',
                   }}
                 >
-                  <div className="font-mono text-lg md:text-xl font-bold" style={{ color: 'var(--color-mark)' }}>
+                  <div className="font-mono text-base font-bold sm:text-lg md:text-xl" style={{ color: 'var(--color-mark)' }}>
                     {m.v}
                   </div>
-                  <div className="font-mono text-[10px] uppercase tracking-widest mt-1" style={{ color: 'var(--color-text-muted)' }}>
+                  <div className="font-mono text-[9px] uppercase tracking-widest mt-1 leading-relaxed sm:text-[10px]" style={{ color: 'var(--color-text-muted)' }}>
                     {m.l}
                   </div>
                 </div>
@@ -147,9 +148,10 @@ export function Hero() {
               className="animate-hero-rise w-full max-w-full overflow-hidden rounded-md backdrop-blur-md"
               style={{
                 animationDelay: '500ms',
+                opacity: 0.86,
                 border: '1px solid var(--color-iron)',
-                background: 'color-mix(in oklab, var(--color-bg-2) 90%, transparent)',
-                boxShadow: '0 0 60px var(--color-mark-soft)',
+                background: 'color-mix(in oklab, var(--color-bg-2) 84%, transparent)',
+                boxShadow: '0 18px 48px rgba(0, 0, 0, 0.28), 0 0 30px var(--color-mark-soft)',
               }}
             >
               {/* Title bar */}
@@ -165,7 +167,7 @@ export function Hero() {
                 </span>
               </div>
               {/* Body */}
-              <div className="min-w-0 px-4 py-4 font-mono text-[11px] leading-[1.7] space-y-1 xl:text-[12px]">
+              <div className="min-w-0 px-4 py-4 font-mono text-[10.5px] leading-[1.75] space-y-1 xl:text-[11.5px]">
                 {cliLines.map((line, i) => {
                   const color =
                     line.cls === 'mark' ? 'var(--color-mark)' :
