@@ -2,6 +2,7 @@
 // Shared document shell for every direction: meta, favicon, skip link and the
 // direction contract comment. Visual styling lives in each direction.
 import { meta } from '../content/meta';
+import { contato } from '../content/copy';
 
 interface Props {
   title?: string;
@@ -15,6 +16,20 @@ const { title = meta.title, description = meta.description, noindex = false, the
 const routePath = Astro.url.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
 const canonical = new URL(routePath, meta.siteUrl).toString();
 const ogImage = new URL('/og-image.png', meta.siteUrl).toString();
+
+const profileLabels = ['LinkedIn', 'Instagram', 'GitHub'];
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${meta.siteUrl}/#person`,
+  name: 'Gabriel Fofonka',
+  url: `${meta.siteUrl}/`,
+  image: ogImage,
+  description: meta.description,
+  jobTitle: 'Head de Operações',
+  worksFor: { '@type': 'Organization', name: 'Academia Lendár[IA]' },
+  sameAs: contato.channels.filter((c) => profileLabels.includes(c.label)).map((c) => c.href),
+};
 ---
 
 <!doctype html>
@@ -40,6 +55,7 @@ const ogImage = new URL('/og-image.png', meta.siteUrl).toString();
     <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />}
     <slot name="head" />
   </head>
   <body>
