@@ -1,0 +1,95 @@
+---
+import {
+  siBitwarden,
+  siChatwoot,
+  siClaude,
+  siClickup,
+  siCloudflare,
+  siGithub,
+  siGrafana,
+  siN8n,
+  siNextdotjs,
+  siNotion,
+  siResend,
+  siSupabase,
+  siVercel,
+  type SimpleIcon,
+} from 'simple-icons';
+import { platforms } from '../../../content/platforms';
+import { splitOn, tilt } from '../lib';
+
+const ICONS: Record<string, SimpleIcon> = {
+  'Claude Code': siClaude,
+  Supabase: siSupabase,
+  Vercel: siVercel,
+  Cloudflare: siCloudflare,
+  'Next.js': siNextdotjs,
+  GitHub: siGithub,
+  ClickUp: siClickup,
+  n8n: siN8n,
+  Notion: siNotion,
+  Resend: siResend,
+  Grafana: siGrafana,
+  Chatwoot: siChatwoot,
+  Bitwarden: siBitwarden,
+};
+// Tools without a simple-icons mark (Codex, Slack, Hotmart, GoHighLevel) get a monogram.
+
+const [before, focus, after] = splitOn(platforms.heading, platforms.highlight);
+---
+
+<section class="section wrap tools" id="ferramentas" aria-labelledby="tools-title">
+  <header class="tools__head" data-reveal>
+    <h2 class="section__title marker" id="tools-title">
+      {platforms.eyebrow}
+      <svg class="rough" data-rough="underline" data-color="pink" data-width="3" data-seed="81" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </h2>
+    <p class="section__lead">{before}<mark class="hl">{focus}</mark>{after}</p>
+  </header>
+  <ul class="sheet-stickers">
+    {platforms.items.map((name, i) => {
+      const icon = ICONS[name];
+      return (
+        <li class="sticker" data-reveal style={`--r:${tilt(i, 5)}; --d:${(i % 5) * 70}ms`}>
+          <span class="sticker__disc" aria-hidden="true">
+            {icon ? (
+              <svg viewBox="0 0 24 24" focusable="false"><path d={icon.path} fill={`#${icon.hex}`} /></svg>
+            ) : (
+              <span class="sticker__mono marker">{name.charAt(0)}</span>
+            )}
+          </span>
+          <h3 class="sticker__name marker">{name}</h3>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<style>
+  .tools__head { max-width: 760px; }
+  .sheet-stickers {
+    margin-top: clamp(40px, 6vw, 72px); display: flex; flex-wrap: wrap; justify-content: center; gap: 40px 28px;
+    padding: clamp(28px, 4vw, 52px); border: 2.5px dashed rgba(22, 23, 27, 0.35); border-radius: 28px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .sticker { display: grid; justify-items: center; text-align: center; gap: 10px; width: 140px; }
+  .sticker__disc {
+    display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: #fff;
+    border: 5px solid #fff; outline: 2px solid var(--ink); outline-offset: 0;
+    box-shadow: 4px 6px 0 rgba(22, 23, 27, 0.18); transform: rotate(var(--r));
+    transition: transform 260ms var(--ease-out);
+  }
+  .sticker__disc svg { width: 46px; height: 46px; }
+  .sticker__mono { font-size: 40px; font-weight: 800; line-height: 1; color: var(--ink); }
+  .sticker__name { font-size: 21px; font-weight: 800; line-height: 1.2; margin-top: 6px; }
+  @media (hover: hover) and (pointer: fine) {
+    .sticker:hover .sticker__disc { transform: rotate(0deg) scale(1.06); }
+  }
+  @media (max-width: 640px) {
+    .sheet-stickers { gap: 32px 12px; padding: 24px 12px; }
+    .sticker { width: 124px; }
+    .sticker__disc { width: 80px; height: 80px; }
+    .sticker__mono { font-size: 32px; }
+    .sticker__disc svg { width: 38px; height: 38px; }
+  }
+</style>

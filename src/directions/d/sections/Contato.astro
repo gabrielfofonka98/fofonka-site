@@ -1,0 +1,81 @@
+---
+import Logo from '../../../components/Logo.astro';
+import { contato } from '../../../content/copy';
+import { splitOn } from '../lib';
+
+const [before, focus, after] = splitOn(contato.heading, contato.highlight);
+const primary = contato.channels.filter((c) => c.primary);
+const secondary = contato.channels.filter((c) => !c.primary);
+const external = (href: string) => href.startsWith('http');
+---
+
+<section class="section wrap contato" id="contato" aria-labelledby="contato-title">
+  <div class="contato__stage" data-reveal>
+    <div class="contato__copy">
+      <p class="prompt">gabriel@fofonka:~$ <b>cortex connect</b><span class="caret" aria-hidden="true"></span></p>
+      <h2 class="contato__title display" id="contato-title">{before}<mark class="ph">{focus}</mark>{after}</h2>
+      <p class="contato__intro">{contato.intro}</p>
+      <div class="contato__actions">
+        <svg class="contato__arrow" viewBox="0 0 120 150" aria-hidden="true" focusable="false">
+          <path class="draw" d="M 100 6 C 70 30, 24 60, 22 136" pathLength="1" style="--dd:700ms; --dur:900ms" />
+          <path class="draw" d="M 10 122 L 22 138 L 34 122" pathLength="1" style="--dd:1500ms; --dur:300ms" />
+        </svg>
+        <ul class="contato__primary">
+          {primary.map((c, i) => (
+            <li>
+              <a class:list={['btn', 'contato__btn', i === 0 && 'btn--ghost']} href={c.href} {...(external(c.href) ? { rel: 'noopener', target: '_blank' } : {})}>
+                <span class="contato__kind mono">{c.label}</span>
+                <span class="contato__value">{c.value}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <ul class="contato__secondary">
+        {secondary.map((c) => (
+          <li><a class="link-under" href={c.href} rel="noopener" target="_blank">{c.value}<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+        ))}
+      </ul>
+    </div>
+    <div class="contato__signature" aria-hidden="true">
+      <span class="contato__index mono">GF / D — 01</span>
+      <Logo class="contato__hero-logo" />
+      <span class="contato__rule"></span>
+    </div>
+  </div>
+  <footer class="foot">
+    <Logo class="foot__logo" />
+    <p>{contato.copyright}</p>
+  </footer>
+</section>
+
+<style>
+  .contato { padding-bottom: 56px; }
+  .contato__stage { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(260px, .7fr); align-items: center; gap: clamp(24px, 4vw, 70px); min-height: min(100svh, 900px); }
+  .contato__copy { display: grid; justify-items: start; gap: 28px; padding-block: clamp(80px, 10vw, 150px); }
+  .contato__copy .prompt { margin-bottom: -6px; }
+  .contato__title { position: relative; font-size: clamp(52px, 7.5vw, 120px); line-height: 0.95; max-width: 11ch; letter-spacing: -0.045em; }
+  .contato__intro { max-width: 52ch; font-size: clamp(17px, 1.3vw, 20px); color: var(--text-dim); }
+  .contato__actions { position: relative; display: grid; gap: 14px; }
+  .contato__arrow { position: absolute; left: calc(-1 * clamp(36px, 5vw, 70px)); top: -118px; width: clamp(36px, 5vw, 72px); height: auto; overflow: visible; }
+  .contato__arrow path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .contato__primary { display: flex; flex-wrap: wrap; gap: 20px; }
+  .contato__btn { flex-direction: column; align-items: flex-start; gap: 2px; padding: 16px 24px; }
+  .contato__kind { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
+  .contato__value { font-size: clamp(17px, 1.6vw, 21px); font-weight: 650; letter-spacing: -0.01em; }
+  .contato__secondary { display: flex; flex-wrap: wrap; gap: 14px 32px; }
+  .foot { display: flex; align-items: center; gap: 12px; color: var(--text-dim); font-size: 15px; }
+  .foot :global(.foot__logo) { width: 24px; height: 24px; color: var(--text); }
+  .foot :global(.foot__logo [data-accent]) { color: var(--gold); }
+  @media (max-width: 1000px) {
+    .contato__stage { grid-template-columns: minmax(0, 1fr); }
+    .contato__copy { position: relative; z-index: 1; }
+    .contato__signature { position: absolute; inset: 0; pointer-events: none; opacity: .28; }
+  }
+  @media (max-width: 900px) {
+    .contato__arrow { display: none; }
+    .contato__btn { white-space: normal; overflow-wrap: anywhere; padding-inline: 16px; }
+    .contato__value { font-size: clamp(14px, 4.1vw, 17px); }
+    .contato__title { font-size: clamp(44px, 12vw, 72px); }
+  }
+</style>

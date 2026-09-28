@@ -1,0 +1,64 @@
+---
+import { comoTrabalho } from '../../../content/copy';
+import { splitOn } from '../lib';
+import { squad } from '../squad';
+
+const [before, focus, after] = splitOn(comoTrabalho.heading, comoTrabalho.highlight);
+const owners = [...squad].sort((a, b) => a.step - b.step).map((a) => a.tag);
+---
+
+<section class="section wrap trabalho" id="como-trabalho" aria-labelledby="trabalho-title">
+  <header class="trabalho__head" data-reveal>
+    <p class="prompt">gabriel@fofonka:~$ <b>cortex run --pipeline</b></p>
+    <h2 class="section__title display" id="trabalho-title">{comoTrabalho.eyebrow}</h2>
+    <span class="rule" aria-hidden="true"></span>
+    <p class="section__lead">{before}<mark class="ph">{focus}</mark>{after}</p>
+  </header>
+  <div class="flow" data-flow>
+    <svg class="flow__svg" data-flow-svg aria-hidden="true" focusable="false"></svg>
+    <ol class="flow__steps">
+      {comoTrabalho.steps.map((step, i) => (
+        <li class="panel step" data-step={i} data-reveal style={`grid-row:${i + 1}`}>
+          <span class="step__num display" aria-hidden="true">
+            <svg viewBox="0 0 56 56" focusable="false"><circle class="draw" cx="28" cy="28" r="25" pathLength="1" style="--dd:150ms" /></svg>
+            {i + 1}
+          </span>
+          <div>
+            <p class="step__who mono"><span class="tag">{owners[i]}</span><span class="step__ok" aria-hidden="true">ok</span></p>
+            <h3 class="step__title display">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .trabalho__head { max-width: 760px; }
+  .flow { position: relative; margin-top: clamp(40px, 6vw, 80px); --flow-stacked: 0; }
+  .flow__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .flow__svg :global(path) { fill: none; stroke: var(--gold); stroke-opacity: 0.75; stroke-width: 1.4; }
+  .flow__svg :global(circle) { fill: var(--gold-hi); transition: opacity 500ms var(--ease-out) 700ms; }
+  :global(.d-motion) .flow__svg :global(g:not(.is-in) circle) { opacity: 0; }
+  .flow__steps { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: 84px; }
+  .step { grid-column: 1 / span 6; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 22px; align-items: start; padding: 28px 30px; }
+  .step:nth-child(even) { grid-column: 7 / span 6; }
+  .step:nth-child(3) { grid-column: 3 / span 6; }
+  .step:nth-child(5) { grid-column: 4 / span 6; }
+  .step__num { position: relative; display: grid; place-items: center; width: 52px; height: 52px; font-size: 21px; letter-spacing: 0; color: var(--gold-hi); text-shadow: var(--glow); }
+  .step__num svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .step__num circle { fill: rgba(242, 193, 78, 0.06); stroke: var(--gold); stroke-width: 1.2; }
+  .step__who { display: flex; align-items: center; gap: 10px; font-size: 12.5px; margin-bottom: 12px; }
+  .step__ok { color: var(--gold-hi); font-weight: 600; text-shadow: 0 0 8px rgba(242, 193, 78, 0.5); }
+  .d-motion .step__ok { opacity: 0; transition: opacity 400ms var(--ease-out) 900ms; }
+  .d-motion .step.is-in .step__ok { opacity: 1; }
+  .step__title { font-size: clamp(22px, 1.9vw, 27px); line-height: 1.15; letter-spacing: -0.025em; }
+  .step__body { margin-top: 10px; color: var(--text-dim); }
+  @media (max-width: 900px) {
+    .flow { --flow-stacked: 1; }
+    .flow__steps { grid-template-columns: minmax(0, 1fr); row-gap: 56px; }
+    .step, .step:nth-child(even), .step:nth-child(3), .step:nth-child(5) { grid-column: 1; padding: 22px 20px; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+    .step__num { width: 44px; height: 44px; font-size: 19px; }
+  }
+</style>

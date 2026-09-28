@@ -1,0 +1,56 @@
+---
+import { comoTrabalho } from '../../../content/copy';
+import { splitOn, tilt } from '../lib';
+
+const [before, focus, after] = splitOn(comoTrabalho.heading, comoTrabalho.highlight);
+---
+
+<section class="section wrap trabalho" id="como-trabalho" aria-labelledby="trabalho-title">
+  <header class="trabalho__head" data-reveal>
+    <h2 class="section__title marker" id="trabalho-title">
+      {comoTrabalho.eyebrow}
+      <svg class="rough" data-rough="underline" data-color="pink" data-width="3" data-seed="31" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </h2>
+    <p class="section__lead">{before}<mark class="hl">{focus}</mark>{after}</p>
+  </header>
+  <div class="flow" data-flow>
+    <svg class="rough" data-rough="flow" aria-hidden="true" focusable="false"></svg>
+    <ol class="flow__steps">
+      {comoTrabalho.steps.map((step, i) => (
+        <li class="step" data-step={i} data-reveal style={`--r:${tilt(i + 3, 1.2)}; grid-row:${i + 1}`}>
+          <span class="step__num marker" aria-hidden="true">
+            {i + 1}
+            <svg class="rough rough--out" data-rough="ellipse" data-color={i % 2 ? 'teal' : 'pink'} data-width="2.6" data-seed={40 + i} data-with-parent aria-hidden="true" focusable="false"></svg>
+          </span>
+          <div>
+            <h3 class="step__title marker">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </div>
+          <svg class="rough" data-rough="box" data-seed={50 + i} data-with-parent aria-hidden="true" focusable="false"></svg>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .trabalho__head { max-width: 760px; }
+  .flow { position: relative; margin-top: clamp(40px, 6vw, 80px); --flow-stacked: 0; }
+  .flow__steps { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: 84px; }
+  .step {
+    position: relative; grid-column: 1 / span 6; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 22px; align-items: start;
+    padding: 28px 30px; background: rgba(255, 255, 255, 0.82); transform: rotate(var(--r));
+  }
+  .step:nth-child(even) { grid-column: 7 / span 6; }
+  .step:nth-child(3) { grid-column: 3 / span 6; }
+  .step:nth-child(5) { grid-column: 4 / span 6; }
+  .step__num { position: relative; display: grid; place-items: center; width: 52px; height: 52px; font-size: 28px; font-weight: 800; }
+  .step__title { font-size: clamp(22px, 2vw, 28px); line-height: 1.2; font-weight: 800; }
+  .step__body { margin-top: 10px; color: var(--ink-soft); }
+  @media (max-width: 900px) {
+    .flow { --flow-stacked: 1; }
+    .flow__steps { grid-template-columns: minmax(0, 1fr); row-gap: 64px; }
+    .step, .step:nth-child(even), .step:nth-child(3), .step:nth-child(5) { grid-column: 1; padding: 22px 20px; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+    .step__num { width: 44px; height: 44px; font-size: 24px; }
+  }
+</style>

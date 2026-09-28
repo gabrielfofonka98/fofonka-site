@@ -1,0 +1,54 @@
+---
+import { skills } from '../../../content/skills';
+import { splitOn, tilt, tint } from '../lib';
+
+const [before, focus, after] = splitOn(skills.heading, skills.highlight);
+---
+
+<section class="section wrap skills" id="skills" aria-labelledby="skills-title">
+  <header class="skills__head" data-reveal>
+    <h2 class="section__title marker" id="skills-title">
+      {skills.eyebrow}
+      <svg class="rough" data-rough="underline" data-color="teal" data-width="3" data-seed="61" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </h2>
+    <p class="section__lead">{before}<mark class="hl">{focus}</mark>{after}</p>
+  </header>
+  <ul class="clusters">
+    {skills.groups.map((group, i) => (
+      <li class={`cluster cluster--${tint(i)}`} data-reveal style={`--r:${tilt(i, 1)}; --d:${(i % 3) * 90}ms`}>
+        <h3 class="cluster__title marker">
+          <span>{group.title}</span>
+          <svg class="rough rough--out" data-rough="ellipse" data-color={tint(i) === 'yellow' ? 'ink' : tint(i)} data-width="2.4" data-seed={70 + i} data-with-parent aria-hidden="true" focusable="false"></svg>
+        </h3>
+        <p class="cluster__body">{group.body}</p>
+        <ul class="cluster__tags" aria-label={`Stack de ${group.title}`}>
+          {group.tags.map((tag, t) => <li class="chip" style={`transform: rotate(${tilt(t + i, 1.6)})`}>{tag}</li>)}
+        </ul>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .skills__head { max-width: 760px; }
+  .clusters { margin-top: clamp(48px, 6vw, 88px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(48px, 5vw, 72px) clamp(28px, 6vw, 96px); max-width: 1040px; }
+  .cluster { position: relative; transform: rotate(var(--r)); }
+  .cluster:nth-child(even) { margin-top: 48px; }
+  .cluster__title { position: relative; display: inline-block; padding: 6px 18px; font-size: clamp(24px, 2.2vw, 32px); font-weight: 800; line-height: 1.2; }
+  .cluster--pink .cluster__title span { text-decoration: underline 6px rgba(255, 111, 174, 0.55); text-underline-offset: -2px; text-decoration-skip-ink: none; }
+  .cluster--teal .cluster__title span { text-decoration: underline 6px rgba(16, 169, 156, 0.4); text-underline-offset: -2px; text-decoration-skip-ink: none; }
+  .cluster__body { margin-top: 16px; color: var(--ink-soft); max-width: 36ch; }
+  .cluster__tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px 8px; }
+  .cluster--yellow .chip:first-child { background: var(--note-yellow); }
+  .cluster--pink .chip:first-child { background: var(--note-pink); }
+  .cluster--teal .chip:first-child { background: var(--note-teal); }
+  @media (max-width: 1000px) {
+    .clusters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cluster:nth-child(n) { margin-top: 0; }
+    .cluster:nth-child(even) { margin-top: 36px; }
+  }
+  @media (max-width: 640px) {
+    .clusters { grid-template-columns: minmax(0, 1fr); gap: 52px; }
+    .cluster:nth-child(even) { margin-top: 0; }
+  }
+</style>

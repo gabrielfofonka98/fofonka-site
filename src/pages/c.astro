@@ -1,0 +1,50 @@
+---
+import Shell from '../layouts/Shell.astro';
+import '../directions/c/c.css';
+import Nav from '../directions/c/sections/Nav.astro';
+import Hero from '../directions/c/sections/Hero.astro';
+import Sobre from '../directions/c/sections/Sobre.astro';
+import ComoPenso from '../directions/c/sections/ComoPenso.astro';
+import ComoTrabalho from '../directions/c/sections/ComoTrabalho.astro';
+import Skills from '../directions/c/sections/Skills.astro';
+import Ferramentas from '../directions/c/sections/Ferramentas.astro';
+import Projetos from '../directions/c/sections/Projetos.astro';
+import Contato from '../directions/c/sections/Contato.astro';
+
+const contract = `
+THESIS: Gabriel's builder notebook. The page is the napkin sketch of how he works: him in the middle, a squad of agents each owning a layer. Refuses the dark dev portfolio with terminal and the cream editorial serif.
+OWN-WORLD: cool graph-paper ground with a pink margin line, black marker ink, highlighter yellow as the one swipe that matters, pink and teal as sticky-note and stamp tints. Shantell Sans for marker, Onest for reading. Hand-drawn rough.js strokes, tape, pins, stickers; every hand-made edge uses one wobble radius.
+STORY: meet him, read the taped page about him, the five principles as sticky notes, the five steps as a flow that draws itself, stack as doodled clusters, tools as a sticker sheet, projects as pinned index cards, one yellow page to start the conversation.
+FIRST VIEWPORT: left half holds the marker headline with Fofonka highlighted, subheadline and the yellow CTA; right half is the sketch of Gabriel wired to @pm, @architect, @dev, @qa and @devops, drawing itself in.
+FORM: hand-drawn zine explainer fused with the product, challenger hand-drawn-zine-explainer, seed c3cc2888.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+`;
+---
+
+<Shell title="Gabriel Fofonka" themeColor="#fbfbf7" noindex contract={contract}>
+  <script is:inline slot="head">
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var root = document.documentElement;
+      root.classList.add('c-motion');
+      // Fail open: if the motion module never boots, show everything.
+      setTimeout(function () {
+        if (!root.hasAttribute('data-motion-ready')) root.classList.remove('c-motion');
+      }, 3500);
+    }
+  </script>
+  <Nav />
+  <main id="conteudo">
+    <Hero />
+    <Sobre />
+    <ComoPenso />
+    <ComoTrabalho />
+    <Skills />
+    <Ferramentas />
+    <Projetos />
+    <Contato />
+  </main>
+</Shell>
+
+<script>
+  import '../directions/c/sketch.ts';
+</script>

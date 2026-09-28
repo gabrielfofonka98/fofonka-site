@@ -1,0 +1,76 @@
+---
+import Logo from '../../../components/Logo.astro';
+import { contato } from '../../../content/copy';
+import { splitOn } from '../lib';
+
+const [before, focus, after] = splitOn(contato.heading, contato.highlight);
+const primary = contato.channels.filter((c) => c.primary);
+const secondary = contato.channels.filter((c) => !c.primary);
+const external = (href: string) => href.startsWith('http');
+---
+
+<section class="section wrap contato" id="contato" aria-labelledby="contato-title">
+  <div class="contato__sheet" data-reveal>
+    <span class="tape contato__tape contato__tape--l" aria-hidden="true"></span>
+    <span class="tape contato__tape contato__tape--r" aria-hidden="true"></span>
+    <p class="contato__ref hand">{contato.eyebrow}</p>
+    <h2 class="contato__title display" id="contato-title">{before}<mark class="hl">{focus}</mark>{after}</h2>
+    <p class="contato__intro">{contato.intro}</p>
+    <div class="contato__actions">
+      <div class="contato__arrow" aria-hidden="true">
+        <svg class="rough" data-rough="arrow" data-from="0.08,0.1" data-to="0.9,0.92" data-bend="-0.28" data-color="anno" data-width="1.8" data-seed="101" data-with-parent aria-hidden="true" focusable="false"></svg>
+      </div>
+      <ul class="contato__primary">
+        {primary.map((c, i) => (
+          <li>
+            <a class:list={['btn', 'contato__btn', i === 0 && 'btn--paper']} href={c.href} {...(external(c.href) ? { rel: 'noopener', target: '_blank' } : {})}>
+              <span class="contato__kind">{c.label}</span>
+              <span class="contato__value">{c.value}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <ul class="contato__secondary">
+      {secondary.map((c) => (
+        <li><a class="link-under" href={c.href} rel="noopener" target="_blank">{c.value}<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      ))}
+    </ul>
+  </div>
+  <footer class="foot">
+    <Logo class="foot__logo" />
+    <p>{contato.copyright}</p>
+  </footer>
+</section>
+
+<style>
+  .contato { padding-bottom: 56px; }
+  .contato__sheet {
+    position: relative; display: grid; justify-items: start; gap: 30px; padding: clamp(40px, 6vw, 88px);
+    background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(21, 23, 28, 0.06), 0 30px 60px -36px rgba(21, 23, 28, 0.45);
+  }
+  .contato__tape { top: -13px; }
+  .contato__tape--l { left: 56px; transform: rotate(-2.5deg); }
+  .contato__tape--r { right: 56px; transform: rotate(2deg); }
+  .contato__ref { font-size: 18px; }
+  .contato__title { font-size: clamp(52px, 8vw, 124px); line-height: 0.95; max-width: 12ch; letter-spacing: -0.045em; }
+  .contato__intro { max-width: 52ch; font-size: clamp(17px, 1.3vw, 20px); color: var(--ink-soft); }
+  .contato__actions { position: relative; display: grid; gap: 14px; }
+  .contato__arrow { position: absolute; left: calc(-1 * clamp(40px, 5vw, 76px)); top: -64px; width: clamp(36px, 4.4vw, 66px); height: 84px; }
+  .contato__primary { display: flex; flex-wrap: wrap; gap: 20px; }
+  .contato__btn { flex-direction: column; align-items: flex-start; gap: 2px; padding: 16px 24px; }
+  .contato__kind { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.8; }
+  .contato__value { font-size: clamp(17px, 1.6vw, 21px); font-weight: 650; letter-spacing: -0.01em; }
+  .contato__secondary { display: flex; flex-wrap: wrap; gap: 14px 32px; }
+  .foot { display: flex; align-items: center; gap: 12px; margin-top: 64px; color: var(--ink-soft); font-size: 15px; }
+  .foot :global(.foot__logo) { width: 24px; height: 24px; }
+  .foot :global(.foot__logo [data-accent]) { color: var(--anno); }
+  @media (max-width: 900px) {
+    .contato__arrow { display: none; }
+    .contato__btn { white-space: normal; overflow-wrap: anywhere; padding-inline: 16px; }
+    .contato__value { font-size: clamp(14px, 4.1vw, 17px); }
+    .contato__sheet { padding: 44px 22px 32px; }
+    .contato__title { font-size: clamp(44px, 12vw, 64px); }
+  }
+</style>

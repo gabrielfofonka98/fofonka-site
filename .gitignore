@@ -1,12 +1,8 @@
-node_modules
-.next
-out
-out-dark
-out-light
-out-moss
+node_modules/
+dist/
+.astro/
+.wrangler/
 .DS_Store
 .env*
 !.env.example
 *.tsbuildinfo
-next-env.d.ts
-.vercel

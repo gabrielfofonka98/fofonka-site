@@ -1,0 +1,179 @@
+/* Direction D material system: dark graphite / light ivory, with copper ink. */
+:root,
+html[data-d-theme='dark'] {
+  --sky: #0e100f;
+  --sky-2: #151814;
+  --panel: rgba(22, 24, 22, .9);
+  --panel-solid: #171a18;
+  --line: rgba(220, 196, 153, .2);
+  --line-strong: rgba(220, 196, 153, .38);
+  --text: #f4f0e8;
+  --text-dim: #cbc5b9;
+  --muted: #aaa596;
+  --steel: #bcae93;
+  --gold: #d8b477;
+  --gold-hi: #f0d6a2;
+  --amber: #d7aa6d;
+  --glow: 0 0 8px rgba(216, 180, 119, .14);
+  --contact-bg: #111512;
+  --contact-ink: #e9d5af;
+  --band-warm: #242019;
+  --band-shade: #101916;
+  color-scheme: dark;
+}
+
+html[data-d-theme='light'] {
+  --sky: #e9e5dc;
+  --sky-2: #f2eee6;
+  --panel: rgba(253, 251, 246, .9);
+  --panel-solid: #f8f5ef;
+  --line: rgba(52, 46, 36, .22);
+  --line-strong: rgba(52, 46, 36, .42);
+  --text: #191a19;
+  --text-dim: #3e413f;
+  --muted: #626661;
+  --steel: #766a55;
+  --gold: #815b26;
+  --gold-hi: #74501d;
+  --amber: #a16f29;
+  --glow: none;
+  --contact-bg: #d8cbb9;
+  --contact-ink: #5c412a;
+  --band-warm: #dfd4c4;
+  --band-shade: #f2ede4;
+  color-scheme: light;
+}
+
+html[data-d-theme='dark'] body {
+  background: radial-gradient(ellipse 38% 19% at 78% 7%, rgba(184, 139, 80, .24), transparent 82%),
+    linear-gradient(90deg, #0b0e0c 0%, #151712 47%, #0a0c0b 100%);
+}
+html[data-d-theme='light'] body {
+  background: radial-gradient(ellipse 53% 37% at 74% 7%, rgba(240, 229, 199, .95), transparent 75%),
+    linear-gradient(115deg, #f1eee8 0%, #dedbd2 100%);
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .19;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
+}
+html[data-d-theme='light'] body::before { opacity: .3; }
+
+/* A soft pool of light keeps the constellation legible without framing it. */
+.page .hero { isolation: isolate; overflow: clip; }
+.page .hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(ellipse 43% 38% at 75% 46%, rgba(235, 197, 135, .11), transparent 78%);
+  pointer-events: none;
+}
+html[data-d-theme='light'] .page .hero::before {
+  background: radial-gradient(ellipse 43% 38% at 75% 46%, rgba(255, 251, 240, .72), transparent 78%);
+}
+
+/* Broad changes in paper tone separate chapters without making cards. */
+.page .tone-band {
+  display: flow-root;
+  padding-block: 1px clamp(72px, 8vw, 120px);
+}
+.page .tone-band--warm {
+  background: linear-gradient(180deg, transparent, var(--band-warm) 10%, var(--band-warm) 90%, transparent);
+}
+.page .tone-band--shade {
+  background: linear-gradient(180deg, transparent, var(--band-shade) 10%, var(--band-shade) 90%, transparent);
+}
+
+/* Physical controls replace phosphor glow on interactive elements. */
+.page .btn {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .17);
+  transition: transform 160ms var(--ease-out), background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.page .btn--ghost { box-shadow: none; }
+.page .nav__links a[aria-current='true'] { box-shadow: none; }
+.page .node.is-live .tag { box-shadow: none; }
+.page .ph,
+.d-motion .is-in .ph,
+.d-motion .ph.is-in { text-shadow: none; }
+@media (hover: hover) and (pointer: fine) {
+  .page .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 0, 0, .2); }
+  .page .btn--ghost:hover { box-shadow: none; }
+}
+html[data-d-theme='light'] .page .btn { box-shadow: 0 4px 0 rgba(72, 53, 31, .16); }
+html[data-d-theme='light'] .page .btn--ghost { box-shadow: none; color: var(--text); }
+html[data-d-theme='light'] .page .tag,
+html[data-d-theme='light'] .page .btn:not(.btn--ghost),
+html[data-d-theme='light'] .page .nav__links a[aria-current='true'] { color: #fffaf0; }
+html[data-d-theme='light'] .page .nav__links a[aria-current='true'] span { color: #fffaf0; }
+html[data-d-theme='light'] .page .chip--lead { color: #fffaf0; background: #6e4818; }
+html[data-d-theme='light'] .page .specimen__mark { background: #f3eee4; }
+html[data-d-theme='light'] .page .chart__core { fill: #815b26; }
+html[data-d-theme='light'] .page .chart__stroke { stroke: #815b26; }
+html[data-d-theme='light'] .page .panel { box-shadow: 0 30px 70px -50px rgba(45, 38, 26, .24); }
+
+/* The toggle reads like a small analog instrument, not a floating theme widget. */
+.nav__actions { display: flex; align-items: center; gap: 10px; }
+.theme-switch[hidden] { display: none !important; }
+.theme-switch { display: inline-flex; align-items: center; padding: 3px; border: 1px solid var(--line-strong); border-radius: 2px; background: var(--panel); }
+.theme-switch button { cursor: pointer; border: 0; border-radius: 1px; padding: 5px 8px; background: transparent; color: var(--text-dim); font: 600 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .035em; }
+.theme-switch button[aria-pressed='true'] { background: var(--gold); color: #120d02; }
+html[data-d-theme='light'] .theme-switch button[aria-pressed='true'] { color: #fffaf0; }
+.theme-switch button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Full-width final scene: copy and mark share the same open field. */
+.page .contato {
+  max-width: none;
+  padding-inline: 0;
+  isolation: isolate;
+  overflow: clip;
+  background: linear-gradient(180deg, transparent 0%, var(--contact-bg) 15%, var(--contact-bg) 100%);
+}
+html[data-d-theme='light'] .page .contato {
+  background: linear-gradient(180deg, transparent 0%, #e6ded2 14%, var(--contact-bg) 100%);
+}
+.page .contato__stage,
+.page .foot { width: 100%; max-width: var(--page-max); margin-inline: auto; padding-inline: var(--gutter); }
+.page .contato__stage { position: relative; }
+.page .contato__signature { position: relative; display: grid; place-items: center; min-height: 560px; color: var(--contact-ink); }
+.page .contato__signature::before {
+  content: '';
+  position: absolute;
+  top: 13%;
+  left: 8%;
+  right: -10%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: .65;
+}
+.page .contato__hero-logo { display: block; width: min(38vw, 480px); height: auto; color: var(--contact-ink); opacity: .72; }
+.page .contato__hero-logo [data-accent] { color: var(--gold); opacity: .85; }
+html[data-d-theme='light'] .page .contato__hero-logo { opacity: .78; }
+.page .contato__index { position: absolute; top: 7%; left: 8%; color: var(--muted); font-size: 12px; letter-spacing: .16em; }
+.page .contato__rule { position: absolute; right: -10%; bottom: 15%; width: 70%; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+.page .foot { padding-block: 24px 10px; border-top: 1px solid var(--line-strong); }
+
+@media (max-width: 1080px) { .brand__host { display: none; } }
+@media (max-width: 900px) {
+  .page .hero::before { display: none; }
+  .page .contato__signature { position: absolute; inset: 0; min-height: 0; pointer-events: none; opacity: .28; }
+  .page .contato__signature::before { display: none; }
+  .page .contato__hero-logo { position: absolute; right: 0; top: 13%; width: min(68vw, 320px); opacity: .35; }
+  .page .contato__index, .page .contato__rule { display: none; }
+}
+@media (max-width: 560px) {
+  .nav { gap: 10px; }
+  .brand__name { display: none; }
+  .brand .logo { width: 28px; height: 28px; }
+  .nav__actions { margin-left: auto; gap: 8px; }
+  .theme-switch button { padding-inline: 6px; font-size: 10px; }
+  .page .contato__copy { padding-block: 110px 90px; }
+  .page .contato__hero-logo { right: 0; top: 9%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page .btn { transition: none; }
+}

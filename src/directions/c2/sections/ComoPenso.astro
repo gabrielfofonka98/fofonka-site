@@ -1,0 +1,60 @@
+---
+import { comoPenso } from '../../../content/copy';
+import { splitOn, tilt } from '../lib';
+
+const [before, focus, after] = splitOn(comoPenso.heading, comoPenso.highlight);
+---
+
+<section class="section wrap penso" id="como-penso" aria-labelledby="penso-title">
+  <header class="penso__head" data-reveal>
+    <h2 class="section__title display" id="penso-title">
+      {comoPenso.eyebrow}
+      <svg class="rough" data-rough="underline" data-color="anno" data-width="2" data-seed="21" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </h2>
+    <p class="section__lead">{before}<mark class="hl">{focus}</mark>{after}</p>
+  </header>
+  <ul class="cards-index">
+    {comoPenso.principles.map((p, i) => (
+      <li class="index-card" data-reveal style={`--r:${tilt(i, 0.8)}; --d:${i * 90}ms`}>
+        <span class="tape index-card__tape" aria-hidden="true"></span>
+        <p class="index-card__ref hand" aria-hidden="true">{`princípio ${i + 1}`}</p>
+        <h3 class="index-card__title display">{p.title}</h3>
+        <p>{p.body}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .penso__head { max-width: 760px; }
+  .cards-index { margin-top: clamp(40px, 6vw, 72px); display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px); }
+  .index-card {
+    grid-column: span 2; position: relative; padding: 30px 26px 28px; min-height: 250px;
+    background-color: var(--sheet);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 14px 14px;
+    background-position: -1px -1px;
+    border: 1px solid var(--rule); border-radius: var(--radius); transform: rotate(var(--r));
+    box-shadow: 0 1px 2px rgba(21, 23, 28, 0.06), 0 14px 30px -20px rgba(21, 23, 28, 0.35);
+    transition: transform 650ms var(--ease-out) var(--d, 0ms), box-shadow 240ms var(--ease-out), opacity 650ms var(--ease-out) var(--d, 0ms);
+    font-size: 16.5px; color: var(--ink-soft);
+  }
+  .index-card:nth-child(4) { grid-column: 2 / span 2; }
+  .index-card__tape { top: -12px; left: 50%; margin-left: -48px; transform: rotate(-2deg); }
+  .index-card__ref { font-size: 15px; margin-bottom: 10px; }
+  .index-card__title { font-size: clamp(22px, 1.8vw, 26px); line-height: 1.15; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 12px; }
+  @media (hover: hover) and (pointer: fine) {
+    .index-card.is-in:hover { transition-duration: 240ms; transition-delay: 0ms; transform: rotate(0deg) translateY(-3px); box-shadow: 0 1px 2px rgba(21, 23, 28, 0.06), 0 20px 36px -20px rgba(21, 23, 28, 0.4); }
+  }
+  @media (max-width: 1000px) {
+    .cards-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .index-card, .index-card:nth-child(4) { grid-column: auto; }
+    .index-card:nth-child(5) { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .cards-index { grid-template-columns: minmax(0, 1fr); }
+    .index-card { min-height: 0; }
+  }
+</style>

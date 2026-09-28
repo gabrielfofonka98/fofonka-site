@@ -1,0 +1,50 @@
+---
+import Shell from '../layouts/Shell.astro';
+import '../directions/c2/c.css';
+import Nav from '../directions/c2/sections/Nav.astro';
+import Hero from '../directions/c2/sections/Hero.astro';
+import Sobre from '../directions/c2/sections/Sobre.astro';
+import ComoPenso from '../directions/c2/sections/ComoPenso.astro';
+import ComoTrabalho from '../directions/c2/sections/ComoTrabalho.astro';
+import Skills from '../directions/c2/sections/Skills.astro';
+import Ferramentas from '../directions/c2/sections/Ferramentas.astro';
+import Projetos from '../directions/c2/sections/Projetos.astro';
+import Contato from '../directions/c2/sections/Contato.astro';
+
+const contract = `
+THESIS: Gabriel's field notebook, v2. The same builder notebook grown up: a senior engineer's working sketches, print type with technical-pen annotation, him as the node the squad is wired to. Refuses the kids' zine (marker display, candy fills, mascot) and the dark terminal portfolio.
+OWN-WORLD: cool graph paper with a blue margin rule, near-black ink and graphite, one gold highlighter, one technical blue for every annotation, arrow, circle and stamp. Onest heavy for display and reading, Shantell Sans at zero informality only in the margins. White sheets, index cards and a specimen sheet held by tape; 3px corners, max 1deg tilt.
+STORY: meet him through the diagram, read the taped page about him, five principles as index cards, five steps as a flow that draws itself, stack as bracketed groups, tools as a specimen sheet, projects as ruled cards with rubber stamps, one sheet to start the conversation.
+FIRST VIEWPORT: left half holds the display headline with Fofonka highlighted, subheadline, ink button and underline link; right half is the technical sketch: the brand mark node inside a hand-drawn circle wired to @pm, @architect, @dev, @qa and @devops, with blue annotations and a dimension line, drawing itself in.
+FORM: hand-drawn zine explainer fused with the product and matured into a field notebook, challenger hand-drawn-zine-explainer, seed c3cc2888, v2.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+`;
+---
+
+<Shell title="Gabriel Fofonka" themeColor="#f7f8f6" noindex contract={contract}>
+  <script is:inline slot="head">
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var root = document.documentElement;
+      root.classList.add('c-motion');
+      // Fail open: if the motion module never boots, show everything.
+      setTimeout(function () {
+        if (!root.hasAttribute('data-motion-ready')) root.classList.remove('c-motion');
+      }, 3500);
+    }
+  </script>
+  <Nav />
+  <main id="conteudo">
+    <Hero />
+    <Sobre />
+    <ComoPenso />
+    <ComoTrabalho />
+    <Skills />
+    <Ferramentas />
+    <Projetos />
+    <Contato />
+  </main>
+</Shell>
+
+<script>
+  import '../directions/c2/sketch.ts';
+</script>

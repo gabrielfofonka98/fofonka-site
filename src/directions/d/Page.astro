@@ -1,0 +1,75 @@
+---
+import Shell from '../../layouts/Shell.astro';
+import './d.css';
+import './theme.css';
+import Nav from './sections/Nav.astro';
+import Hero from './sections/Hero.astro';
+import Sobre from './sections/Sobre.astro';
+import ComoPenso from './sections/ComoPenso.astro';
+import ComoTrabalho from './sections/ComoTrabalho.astro';
+import Skills from './sections/Skills.astro';
+import Ferramentas from './sections/Ferramentas.astro';
+import Projetos from './sections/Projetos.astro';
+import Contato from './sections/Contato.astro';
+
+interface Props {
+  noindex?: boolean;
+}
+
+const { noindex = false } = Astro.props;
+
+const contract = `
+THESIS: A human builder directs a crew of AI agents. The crew stays in a constellation around his mark, while the page becomes an analog editorial space with distinct dark and light materials.
+OWN-WORLD: Obsidian Atelier is warm graphite with copper-toned chapter breaks; Ivory Observatory is layered ivory and parchment. Both borrow restrained cues from 1980s print and instruments: registration marks, fine rules, grain and copper warmth. A quiet galaxy belongs to the hero constellation only; there is no page-wide starfield, notebook grid or neon. Buttons have physical depth rather than glows.
+STORY: whoami and the crew, the about file, five principles, the pipeline, the stack, tools, projects and an open final contact hero anchored by the brand mark.
+FIRST VIEWPORT: left half holds the headline and proof; right half is the live crew constellation in a small static galaxy, held within the matte material and light of the selected theme.
+FORM: direction D with two complete themes, an accessible switch, and a full-bleed contact finale. The sky canvas and four-point contact star are retired.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+`;
+---
+
+<Shell themeColor="#11130f" noindex={noindex} contract={contract}>
+  <script is:inline slot="head">
+    (function () {
+      var theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      try {
+        var saved = localStorage.getItem('fofonka-d-theme');
+        if (saved === 'light' || saved === 'dark') theme = saved;
+      } catch (_) {}
+      document.documentElement.dataset.dTheme = theme;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#e9e5dc' : '#11130f');
+    })();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var root = document.documentElement;
+      root.classList.add('d-motion');
+      // Fail open: if the motion module never boots, show everything.
+      setTimeout(function () {
+        if (!root.hasAttribute('data-motion-ready')) root.classList.remove('d-motion');
+      }, 3500);
+    }
+  </script>
+  <div class="page">
+    <Nav />
+    <main id="conteudo">
+      <Hero />
+      <div class="tone-band tone-band--warm">
+        <Sobre />
+        <ComoPenso />
+      </div>
+      <div class="tone-band tone-band--shade">
+        <ComoTrabalho />
+        <Skills />
+      </div>
+      <div class="tone-band tone-band--warm">
+        <Ferramentas />
+        <Projetos />
+      </div>
+      <Contato />
+    </main>
+  </div>
+</Shell>
+
+<script>
+  import './motion.ts';
+  import './theme.ts';
+</script>

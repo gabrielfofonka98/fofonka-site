@@ -1,0 +1,38 @@
+---
+import Shell from '../layouts/Shell.astro';
+import '../directions/d/d.css';
+import '../directions/d/theme.css';
+import { meta, notFound } from '../content/meta';
+
+const contract = `
+THESIS: A quiet dead end in the direction D material, pointing straight back home.
+OWN-WORLD: direction D dark graphite with copper ink; reuses d.css and theme.css tokens, no new visual language.
+STORY: eyebrow 404, one heading, one sentence, one way back.
+FIRST VIEWPORT: centered message and the gold CTA to the home.
+FORM: static noindex error page served by Cloudflare Pages for unknown routes.
+FINISH: minimal by design; no motion, no scripts.
+`;
+---
+
+<Shell title={`${notFound.eyebrow} · ${meta.title}`} description={notFound.body} themeColor="#11130f" noindex contract={contract}>
+  <main id="conteudo" class="page not-found wrap">
+    <p class="not-found__eyebrow mono">{notFound.eyebrow}</p>
+    <h1 class="display">{notFound.heading}</h1>
+    <p class="not-found__body">{notFound.body}</p>
+    <a class="btn" href={notFound.cta.href}>{notFound.cta.label} <span aria-hidden="true">→</span></a>
+  </main>
+</Shell>
+
+<style>
+  .not-found {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .not-found h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1.05; }
+  .not-found__eyebrow { color: var(--gold); font-size: 13px; letter-spacing: 0.12em; }
+  .not-found__body { max-width: 52ch; color: var(--text-dim); margin-bottom: 12px; }
+</style>
