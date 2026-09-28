@@ -1,31 +1,39 @@
 # fofonka-site
 
-Página pessoal de Gabriel Fofonka. One-pager Next.js + Tailwind, static export, Cloudflare Pages.
+Página pessoal de Gabriel Fofonka. Site estático em Astro 7, publicado no Cloudflare Pages.
 
 ## Setup local
 
-```bash
-nvm use            # Node 20
-npm install
-npm run dev        # http://localhost:3000
-```
-
-## Build
+Requer Node 26 (definido em `.nvmrc`).
 
 ```bash
-npm run build
-npx serve out      # smoke test
+nvm use
+npm ci
+npm run dev        # http://localhost:4321
 ```
+
+## Verificação e build
+
+```bash
+npm run check      # astro check (tipos e diagnósticos)
+npm run build      # gera dist/
+npm run test:site  # smoke tests sobre dist/ (rodar depois do build)
+```
+
+## Rotas
+
+| Rota | Indexação |
+|------|-----------|
+| `/` | indexável, única URL no `sitemap.xml` |
+| `/c`, `/c2`, `/d` | previews com `noindex` (fora do sitemap) |
+
+`robots.txt` e `sitemap.xml` são gerados em `src/pages/`. Headers de segurança e o redirect `www` → apex (308) ficam em `public/_headers` e `public/_redirects`.
 
 ## Deploy
 
-Cloudflare Pages auto-deploy via push (Gage configura em CTS-007).
+GitHub Actions publica `dist/` no projeto `fofonka-site` do Cloudflare Pages: push na `main` vai para produção; push em `feat/**` gera um preview em `<branch>.fofonka-site.pages.dev`.
 
-## Refs
+## Rollback
 
-- PRD: `~/fofonka/docs/product/PRD-fofonka-personal-page.md`
-- SPEC: `~/fofonka/docs/specs/SPEC-fofonka-personal-page.md`
-- Design spec: `~/fofonka/docs/design/personal-page-spec.md` (+ amendment §13)
-- Copy: `~/fofonka/docs/design/personal-page-copy.md`
-- ADR motion stack: `~/fofonka/docs/architecture/ADR-001-wow-moment-stack.md`
-- Decision log: `~/fofonka/docs/decisions/DECISION-LOG.md`
+- **Cloudflare Pages:** em Deployments, use "Rollback" no deploy anterior.
+- **Git:** `git revert -m 1 <merge-commit>` na `main` e faça push; o workflow republica. A última versão em Next.js é o commit `69c2055`.

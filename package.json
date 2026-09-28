@@ -1,26 +1,30 @@
 {
   "name": "fofonka-site",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test:site": "node --test scripts/site.test.mjs"
   },
   "dependencies": {
-    "next": "^14.2.20",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "motion": "^11.11.17"
+    "@fontsource-variable/jetbrains-mono": "^5.2.0",
+    "@fontsource-variable/onest": "^5.2.0",
+    "@fontsource-variable/shantell-sans": "^5.2.0",
+    "astro": "^7.3.5",
+    "roughjs": "^4.6.6"
   },
   "devDependencies": {
-    "@types/node": "^20.14.10",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.39",
-    "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.3"
+    "@astrojs/check": "^0.9.10",
+    "axe-core": "^4.13.0",
+    "playwright-core": "1.56",
+    "simple-icons": "^16.32.0",
+    "typescript": "^5.9.3"
   }
 }

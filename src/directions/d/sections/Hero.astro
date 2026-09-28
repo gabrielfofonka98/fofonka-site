@@ -1,0 +1,178 @@
+---
+import { hero } from '../../../content/copy';
+import { logoGeometry, splitOn } from '../lib';
+import { squad } from '../squad';
+
+const [before, focus, after] = splitOn(hero.headline, hero.highlight);
+const cx = 350;
+const cy = 300;
+const core = 96;
+const logo = logoGeometry();
+const [, , vbW, vbH] = logo.viewBox;
+const logoScale = 150 / Math.max(vbW, vbH);
+const logoTransform = `translate(${cx - (vbW * logoScale) / 2} ${cy - (vbH * logoScale) / 2}) scale(${logoScale})`;
+
+// A fixed ribbon of warm star dust stays inside the hero, without a sky loop.
+let dustSeed = 73;
+const nextDust = () => ((dustSeed = (dustSeed * 1664525 + 1013904223) >>> 0) / 4294967296);
+const galaxyDust = Array.from({ length: 110 }, () => {
+  const t = nextDust();
+  const x = 36 + t * 628;
+  const y = 462 - t * 304 + (nextDust() - .5) * (150 + 100 * Math.sin(t * Math.PI));
+  const size = nextDust();
+  return {
+    x: x.toFixed(1),
+    y: y.toFixed(1),
+    r: (size > .97 ? 1.6 : .35 + size * .65).toFixed(2),
+    opacity: (.11 + nextDust() * .29).toFixed(2),
+  };
+}).filter((star) => Number(star.y) > 22 && Number(star.y) < 598);
+
+// Gold connectors from Gabriel's core to each agent star, bending alternately.
+const connectors = squad.map((agent, i) => {
+  const dx = agent.x - cx;
+  const dy = agent.y - cy;
+  const d = Math.hypot(dx, dy);
+  const sx = cx + (dx / d) * (core + 6);
+  const sy = cy + (dy / d) * (core + 6);
+  const ex = agent.x - (dx / d) * 16;
+  const ey = agent.y - (dy / d) * 16;
+  const bend = (i % 2 ? 1 : -1) * 34;
+  const mx = (sx + ex) / 2 - (dy / d) * bend;
+  const my = (sy + ey) / 2 + (dx / d) * bend;
+  return { id: agent.id, d: `M ${sx.toFixed(1)} ${sy.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`, delay: 900 + i * 180 };
+});
+
+// Label anchoring keeps every live log inside the chart box.
+const anchors: Record<string, 'start' | 'end' | 'middle'> = { pm: 'start', architect: 'end', dev: 'end', devops: 'start', qa: 'middle' };
+---
+
+<section class="hero wrap" id="hero" aria-labelledby="hero-title">
+  <div class="hero__copy">
+    <p class="prompt" data-reveal>gabriel@fofonka:~$ <b>cortex whoami</b></p>
+    <p class="hero__tag mono" data-reveal style="--d:80ms">{hero.greeting}</p>
+    <h1 class="hero__title display" id="hero-title" data-reveal style="--d:140ms">
+      {before}<mark class="ph">{focus}</mark>{after}
+    </h1>
+    <p class="hero__sub" data-reveal style="--d:280ms">{hero.subheadline}</p>
+    <p class="hero__proof mono" data-reveal style="--d:340ms">{hero.proofLine}</p>
+    <div class="hero__ctas" data-reveal style="--d:400ms">
+      <a class="btn" href={hero.ctaPrimary.href}>{hero.ctaPrimary.label} <span aria-hidden="true">→</span></a>
+      <a class="link-under" href={hero.ctaSecondary.href} rel="noopener" target="_blank">{hero.ctaSecondary.label}<span class="visually-hidden"> (abre em nova aba)</span></a>
+    </div>
+  </div>
+
+  <figure class="chart" data-chart aria-label="Constelação: o “f.” do Gabriel no centro, ligado aos agentes do Cortex @pm, @architect, @dev, @qa e @devops, cada um com cargo e limite.">
+    <svg class="chart__svg" viewBox="0 0 700 620" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="d-core" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f2c14e" stop-opacity="0.18" />
+          <stop offset="70%" stop-color="#f2c14e" stop-opacity="0.04" />
+          <stop offset="100%" stop-color="#f2c14e" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="d-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffd680" stop-opacity="0.75" />
+          <stop offset="100%" stop-color="#f2c14e" stop-opacity="0" />
+        </radialGradient>
+        <filter id="d-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+      </defs>
+      <g class="chart__galaxy">
+        {galaxyDust.map((star) => <circle cx={star.x} cy={star.y} r={star.r} opacity={star.opacity} />)}
+      </g>
+      <circle cx={cx} cy={cy} r="150" fill="url(#d-core)" />
+      <circle class="chart__orbit" cx={cx} cy={cy} r="150" />
+      <circle class="chart__orbit chart__orbit--inner" cx={cx} cy={cy} r={core} />
+      {connectors.map((c) => (
+        <path class="draw chart__link" data-link={c.id} d={c.d} pathLength="1" style={`--dd:${c.delay}ms; --dur:1000ms`} />
+      ))}
+      <g class="chart__logo" transform={logoTransform} filter="url(#d-glow)" data-logo-constellation>
+        {logo.paths.map((d, i) => (
+          <path class="draw chart__stroke" d={d} pathLength="1" style={`--dd:${250 + i * 300}ms; --dur:1200ms`} />
+        ))}
+      </g>
+      {logo.dot && (
+        <g class="chart__dot" transform={logoTransform}>
+          <circle cx={logo.dot.cx} cy={logo.dot.cy} r="26" fill="url(#d-halo)" />
+          <circle cx={logo.dot.cx} cy={logo.dot.cy} r="7" fill="#ffd680" />
+        </g>
+      )}
+      {squad.map((agent, i) => (
+        <g class="chart__star" data-star={agent.id} style={`--dd:${1500 + i * 180}ms`}>
+          <circle cx={agent.x} cy={agent.y} r="14" class="chart__ring" />
+          <circle cx={agent.x} cy={agent.y} r="4.5" class="chart__core" filter="url(#d-glow)" />
+        </g>
+      ))}
+    </svg>
+    <p class="chart__me mono" style={`left:${(cx / 700) * 100}%; top:${((cy + core + 34) / 620) * 100}%`}>gabriel</p>
+    <ul class="chart__nodes" data-panes>
+      {squad.map((agent, i) => (
+        <li
+          class:list={['node', `node--${anchors[agent.id]}`, { 'node--below': agent.y > 250 }]}
+          data-agent={agent.id}
+          data-lines={JSON.stringify(agent.lines)}
+          style={`left:${(agent.x / 700) * 100}%; top:${(agent.y / 620) * 100}%; --d:${1600 + i * 180}ms`}
+          data-reveal
+        >
+          <span class="tag">{agent.tag}</span>
+          <span class="node__log mono"><span class="node__line">$ {agent.lines[0]}</span></span>
+        </li>
+      ))}
+    </ul>
+  </figure>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+    min-height: calc(100dvh - 84px);
+    padding-bottom: 6vh;
+  }
+  .hero__tag { display: inline-block; font-size: 13px; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 20px; }
+  .hero__title { font-size: clamp(42px, 4.6vw, 76px); line-height: 1; }
+  .hero__sub { margin-top: 28px; max-width: 46ch; font-size: clamp(17px, 1.3vw, 20px); color: var(--text-dim); }
+  .hero__proof { margin-top: 16px; max-width: 52ch; font-size: 13px; line-height: 1.6; letter-spacing: 0.02em; color: var(--gold); }
+  .hero__ctas { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px 30px; }
+
+  .chart { position: relative; margin: 0; aspect-ratio: 700 / 620; }
+  .chart__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .chart__galaxy { fill: var(--gold-hi); }
+  .chart__orbit { fill: none; stroke: var(--steel); stroke-opacity: 0.28; stroke-width: 1; stroke-dasharray: 2 7; vector-effect: non-scaling-stroke; }
+  .chart__orbit--inner { stroke-opacity: 0.2; stroke-dasharray: none; }
+  .chart__link { fill: none; stroke: var(--gold); stroke-opacity: 0.7; stroke-width: 1.4; }
+  .chart__stroke { fill: none; stroke: var(--gold-hi); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .chart__ring { fill: rgba(242, 193, 78, 0.06); stroke: var(--gold); stroke-opacity: 0.55; stroke-width: 1; }
+  .chart__core { fill: var(--gold-hi); }
+  .chart__star.is-live .chart__ring { stroke-opacity: 1; fill: rgba(242, 193, 78, 0.16); }
+  .chart__link.is-live { stroke-opacity: 1; stroke-width: 2; }
+
+  .d-motion .chart__dot, .d-motion .chart__star { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity 700ms var(--ease-out) var(--dd, 1500ms); }
+  .d-motion .chart__dot { --dd: 1650ms; }
+  .d-motion .is-in .chart__dot, .d-motion .is-in .chart__star { opacity: 1; }
+  .chart__star .chart__ring { transition: stroke-opacity 300ms ease, fill 300ms ease; }
+
+  .chart__me { position: absolute; transform: translate(-50%, 0); font-size: 13px; color: var(--text-dim); letter-spacing: 0.04em; }
+  .node { position: absolute; display: grid; gap: 6px; justify-items: start; width: max-content; max-width: 280px; transform: translate(-14px, calc(-100% - 22px)); }
+  .node--below { transform: translate(-14px, 22px); }
+  .node--end { justify-items: end; transform: translate(calc(-100% + 14px), calc(-100% - 22px)); }
+  .node--end.node--below { transform: translate(calc(-100% + 14px), 22px); }
+  .node--middle { justify-items: center; transform: translate(-50%, 24px); }
+  .d-motion .node[data-reveal]:not(.is-in) { opacity: 0; }
+  .d-motion .node[data-reveal] { transition: opacity 700ms var(--ease-out) var(--d, 0ms); }
+  .node__log { display: block; font-size: 12.5px; line-height: 1.5; color: var(--text-dim); white-space: nowrap; min-height: 1.5em; }
+  .node.is-live .tag { box-shadow: 0 0 18px rgba(242, 193, 78, 0.55); }
+  .node.is-live .node__log { color: var(--text); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: minmax(0, 1fr); min-height: auto; padding-top: 4px; gap: 18px; }
+    .chart { order: -1; width: 100%; max-width: 250px; margin-inline: auto; margin-block: 4px 6px; }
+    .node__log { display: none; }
+    .node .tag { font-size: 13px; }
+    .chart__me { font-size: 12px; }
+  }
+</style>

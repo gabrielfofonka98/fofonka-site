@@ -1,0 +1,29 @@
+---
+import Logo from '../../../components/Logo.astro';
+import { navigation } from '../../../content/navigation';
+
+const windows = navigation.links.map((link, index) => ({ ...link, index: index + 1 }));
+---
+
+<header class="wrap">
+  <nav class="nav" aria-label={navigation.label}>
+    <a class="brand" href="#hero" aria-label="Gabriel Fofonka — voltar ao início"><Logo /><span class="brand__name">Gabriel Fofonka</span><span class="brand__host">~/fofonka</span></a>
+    <ul class="nav__links">
+      {windows.map((w) => (
+        <li><a href={w.href} data-nav={w.href.slice(1)}><span aria-hidden="true">{w.index}:</span>{w.label.toLowerCase()}</a></li>
+      ))}
+    </ul>
+    <div class="nav__actions">
+      <div class="theme-switch mono" role="group" aria-label="Tema da página" hidden data-d-theme-switch>
+        <button type="button" data-d-theme-choice="dark" aria-pressed="true">Escuro</button>
+        <button type="button" data-d-theme-choice="light" aria-pressed="false">Claro</button>
+      </div>
+      <details class="nav__menu">
+        <summary>menu</summary>
+        <ul>
+          {windows.map((w) => <li><a href={w.href}>{w.label}</a></li>)}
+        </ul>
+      </details>
+    </div>
+  </nav>
+</header>

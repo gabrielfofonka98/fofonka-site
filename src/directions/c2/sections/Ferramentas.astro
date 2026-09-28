@@ -1,0 +1,110 @@
+---
+import {
+  siBitwarden,
+  siChatwoot,
+  siClaude,
+  siClickup,
+  siCloudflare,
+  siGithub,
+  siGrafana,
+  siN8n,
+  siNextdotjs,
+  siNotion,
+  siResend,
+  siSupabase,
+  siVercel,
+  type SimpleIcon,
+} from 'simple-icons';
+import { platforms } from '../../../content/platforms';
+import { splitOn } from '../lib';
+
+const ICONS: Record<string, SimpleIcon> = {
+  'Claude Code': siClaude,
+  Supabase: siSupabase,
+  Vercel: siVercel,
+  Cloudflare: siCloudflare,
+  'Next.js': siNextdotjs,
+  GitHub: siGithub,
+  ClickUp: siClickup,
+  n8n: siN8n,
+  Notion: siNotion,
+  Resend: siResend,
+  Grafana: siGrafana,
+  Chatwoot: siChatwoot,
+  Bitwarden: siBitwarden,
+};
+// Tools without a simple-icons mark (Codex, Slack, Hotmart, GoHighLevel) get a monogram.
+
+const [before, focus, after] = splitOn(platforms.heading, platforms.highlight);
+---
+
+<section class="section wrap tools" id="ferramentas" aria-labelledby="tools-title">
+  <header class="tools__head" data-reveal>
+    <h2 class="section__title display" id="tools-title">
+      {platforms.eyebrow}
+      <svg class="rough" data-rough="underline" data-color="anno" data-width="2" data-seed="81" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </h2>
+    <p class="section__lead">{before}<mark class="hl">{focus}</mark>{after}</p>
+  </header>
+  <div class="specimen" data-reveal>
+    <span class="tape specimen__tape specimen__tape--l" aria-hidden="true"></span>
+    <span class="tape specimen__tape specimen__tape--r" aria-hidden="true"></span>
+    <ul class="specimen__grid">
+      {platforms.items.map((name) => {
+        const icon = ICONS[name];
+        return (
+          <li class="specimen__item">
+            <span class="specimen__mark" aria-hidden="true">
+              {icon ? (
+                <svg viewBox="0 0 24 24" focusable="false"><path d={icon.path} /></svg>
+              ) : (
+                <span class="specimen__mono display">{name.charAt(0)}</span>
+              )}
+            </span>
+            <h3 class="specimen__name display">{name}</h3>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .tools__head { max-width: 760px; }
+  .specimen {
+    position: relative; margin-top: clamp(40px, 6vw, 72px); padding: clamp(24px, 3vw, 40px);
+    background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(21, 23, 28, 0.06), 0 22px 44px -28px rgba(21, 23, 28, 0.4);
+  }
+  .specimen__tape { top: -12px; }
+  .specimen__tape--l { left: 40px; transform: rotate(-2.5deg); }
+  .specimen__tape--r { right: 40px; transform: rotate(2deg); }
+  .specimen__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .specimen__item {
+    display: grid; align-content: start; gap: 8px; padding: 24px 20px 26px;
+    border-right: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule);
+  }
+  .specimen__item:nth-child(6n) { border-right: 0; }
+  .specimen__item:nth-last-child(-n + 6) { border-bottom: 0; }
+  .specimen__mark { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 8px; border: 1.5px solid var(--ink); border-radius: var(--radius); background: var(--paper); transition: transform 260ms var(--ease-out); }
+  .specimen__mark svg { width: 26px; height: 26px; fill: var(--ink); }
+  .specimen__mono { font-size: 24px; line-height: 1; color: var(--ink); }
+  .specimen__name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  @media (hover: hover) and (pointer: fine) {
+    .specimen__item:hover .specimen__mark { transform: translateY(-2px); }
+  }
+  @media (max-width: 1000px) {
+    .specimen__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .specimen__item:nth-child(n) { border-right: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); }
+    .specimen__item:nth-child(3n) { border-right: 0; }
+    .specimen__item:nth-last-child(-n + 3) { border-bottom: 0; }
+  }
+  @media (max-width: 480px) {
+    .specimen { padding: 16px 12px; }
+    .specimen__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .specimen__item:nth-child(n) { border-right: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); }
+    .specimen__item:nth-child(2n) { border-right: 0; }
+    .specimen__item:nth-last-child(-n + 2) { border-bottom: 0; }
+    .specimen__item { padding: 18px 12px 20px; }
+  }
+</style>

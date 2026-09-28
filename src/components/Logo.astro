@@ -1,0 +1,20 @@
+---
+// The ONE place that renders the brand mark. Swap contract: DESIGN.md "Logo swap contract".
+import raw from '../brand/logo.svg?raw';
+
+interface Props {
+  class?: string;
+  label?: string;
+  id?: string;
+}
+
+const { class: className = '', label, id } = Astro.props;
+const a11y = label
+  ? `role="img" aria-label="${label.replace(/"/g, '&quot;')}"`
+  : 'aria-hidden="true" focusable="false"';
+const svg = raw
+  .trim()
+  .replace('<svg ', `<svg class="logo ${className}" ${id ? `id="${id}" ` : ''}${a11y} data-logo `);
+---
+
+<Fragment set:html={svg} />

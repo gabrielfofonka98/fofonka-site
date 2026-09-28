@@ -1,0 +1,72 @@
+---
+import Logo from '../../../components/Logo.astro';
+import { contato } from '../../../content/copy';
+import { splitOn } from '../lib';
+
+const [before, focus, after] = splitOn(contato.heading, contato.highlight);
+const primary = contato.channels.filter((c) => c.primary);
+const secondary = contato.channels.filter((c) => !c.primary);
+const external = (href: string) => href.startsWith('http');
+---
+
+<section class="section wrap contato" id="contato" aria-labelledby="contato-title">
+  <div class="contato__page" data-reveal>
+    <p class="contato__tab marker">{contato.eyebrow}</p>
+    <h2 class="contato__title marker" id="contato-title">{before}<mark class="hl">{focus}</mark>{after}</h2>
+    <p class="contato__intro">{contato.intro}</p>
+    <div class="contato__arrow" aria-hidden="true">
+      <svg class="rough" data-rough="arrow" data-from="0.7,0.05" data-to="0.05,0.95" data-bend="-0.3" data-width="2.6" data-seed="101" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </div>
+    <ul class="contato__primary">
+      {primary.map((c, i) => (
+        <li>
+          <a class:list={['btn', 'contato__btn', i === 1 && 'btn--teal']} href={c.href} {...(external(c.href) ? { rel: 'noopener', target: '_blank' } : {})}>
+            <span class="contato__kind">{c.label}</span>
+            <span>{c.value}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <ul class="contato__secondary">
+      {secondary.map((c) => (
+        <li><a class="link-wavy" href={c.href} rel="noopener" target="_blank">{c.value}<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      ))}
+    </ul>
+  </div>
+  <footer class="foot">
+    <Logo class="foot__logo" />
+    <p>{contato.copyright}</p>
+  </footer>
+</section>
+
+<style>
+  .contato { padding-bottom: 56px; }
+  .contato__page {
+    position: relative; display: grid; justify-items: start; gap: 28px; padding: clamp(36px, 6vw, 88px);
+    background: var(--note-yellow); border: 2.5px solid var(--ink); border-radius: var(--wobble-soft);
+    box-shadow: 10px 12px 0 var(--ink);
+  }
+  .contato__tab {
+    position: absolute; top: -22px; left: clamp(24px, 5vw, 72px); padding: 6px 18px; font-size: 18px; font-weight: 700;
+    background: var(--pink); border: 2.5px solid var(--ink); border-radius: 12px 12px 4px 4px; transform: rotate(-2deg);
+  }
+  .contato__title { font-size: clamp(52px, 8vw, 128px); line-height: 0.98; font-weight: 800; letter-spacing: -0.025em; max-width: 12ch; font-variation-settings: 'INFM' 50, 'BNCE' 35; }
+  .contato__title .hl::before { background: var(--pink); top: 0.3em; bottom: 0.06em; }
+  .contato__intro { max-width: 52ch; font-size: clamp(17px, 1.3vw, 20px); color: var(--ink-soft); }
+  .contato__arrow { position: absolute; right: clamp(24px, 8vw, 140px); top: clamp(80px, 11vw, 150px); width: 200px; height: 200px; }
+  .contato__primary { display: flex; flex-wrap: wrap; gap: 20px; }
+  .contato__btn { flex-direction: column; align-items: flex-start; gap: 2px; font-size: clamp(18px, 1.8vw, 24px); background: #fff; }
+  .contato__btn.btn--teal { background: var(--teal); }
+  .contato__kind { font-family: var(--body); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .contato__secondary { display: flex; flex-wrap: wrap; gap: 14px 32px; }
+  .contato__secondary .link-wavy { font-size: 20px; }
+  .foot { display: flex; align-items: center; gap: 12px; margin-top: 64px; color: var(--ink-soft); font-size: 15px; }
+  .foot :global(.foot__logo) { width: 26px; height: 26px; transform: rotate(-6deg); }
+  .foot :global(.foot__logo [data-accent]) { color: var(--pink); }
+  @media (max-width: 900px) {
+    .contato__arrow { display: none; }
+    .contato__btn { white-space: normal; overflow-wrap: anywhere; font-size: clamp(14px, 4.1vw, 17px); padding-inline: 16px; }
+    .contato__page { box-shadow: 6px 8px 0 var(--ink); padding: 44px 22px 32px; }
+    .contato__title { font-size: clamp(44px, 12vw, 64px); }
+  }
+</style>

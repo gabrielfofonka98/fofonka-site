@@ -1,0 +1,46 @@
+---
+import { hero } from '../../../content/copy';
+import { splitOn } from '../lib';
+
+const [before, focus, after] = splitOn(hero.headline, hero.highlight);
+---
+
+<section class="hero wrap" id="hero" aria-labelledby="hero-title">
+  <div class="hero__copy">
+    <p class="hero__tag hand" data-reveal>{hero.greeting}</p>
+    <h1 class="hero__title display" id="hero-title" data-reveal style="--d:120ms">
+      {before}<mark class="hl hl--wrap">{focus}</mark>{after}
+    </h1>
+    <p class="hero__sub" data-reveal style="--d:260ms">{hero.subheadline}</p>
+    <p class="hero__proof hand" data-reveal style="--d:320ms">{hero.proofLine}</p>
+    <div class="hero__ctas" data-reveal style="--d:380ms">
+      <a class="btn" href={hero.ctaPrimary.href}>{hero.ctaPrimary.label} <span aria-hidden="true">→</span></a>
+      <a class="link-under" href={hero.ctaSecondary.href} rel="noopener" target="_blank">{hero.ctaSecondary.label}<span class="visually-hidden"> (abre em nova aba)</span></a>
+    </div>
+  </div>
+  <figure class="hero__sketch" aria-label="Rascunho técnico: Gabriel no centro, conectado aos agentes do Cortex PM, arquitetura, dev, QA e DevOps, cada um com cargo e limite.">
+    <svg class="hero__svg" data-rough="hero" viewBox="0 0 700 620" aria-hidden="true" focusable="false"></svg>
+  </figure>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+    min-height: calc(100dvh - 84px);
+    padding-bottom: 6vh;
+  }
+  .hero__tag { display: inline-block; font-size: 17px; margin-bottom: 18px; }
+  .hero__title { font-size: clamp(42px, 4.6vw, 76px); line-height: 1; }
+  .hero__sub { margin-top: 28px; max-width: 46ch; font-size: clamp(17px, 1.3vw, 20px); color: var(--ink-soft); }
+  .hero__proof { margin-top: 16px; max-width: 46ch; font-size: 16px; color: var(--anno); }
+  .hero__ctas { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px 30px; }
+  .hero__sketch { margin: 0; }
+  .hero__svg { width: 100%; height: auto; display: block; overflow: visible; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: minmax(0, 1fr); min-height: auto; padding-top: 8px; gap: 16px; }
+    .hero__sketch { order: -1; max-width: 480px; }
+  }
+</style>

@@ -1,0 +1,25 @@
+// Copy v3 from docs/copy/site-v2-copy.md section 9: name only, no description (CTS-004)
+export const platforms = {
+  eyebrow: 'Ferramentas',
+  heading: 'O que eu uso no dia a dia.',
+  highlight: 'no dia a dia',
+  items: [
+    'Claude Code',
+    'Codex',
+    'ClickUp',
+    'Notion',
+    'n8n',
+    'Supabase',
+    'Vercel',
+    'Cloudflare',
+    'GitHub',
+    'Next.js',
+    'Slack',
+    'Grafana',
+    'Hotmart',
+    'GoHighLevel',
+    'Chatwoot',
+    'Bitwarden',
+    'Resend',
+  ],
+};

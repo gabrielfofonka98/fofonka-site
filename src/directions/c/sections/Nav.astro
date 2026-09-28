@@ -1,0 +1,28 @@
+---
+import Logo from '../../../components/Logo.astro';
+import { navigation } from '../../../content/navigation';
+---
+
+<header class="wrap">
+  <nav class="nav" aria-label={navigation.label}>
+    <a class="brand marker" href="#hero"><Logo />fofonka</a>
+    <ul class="nav__links">
+      {navigation.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+    </ul>
+    <details class="nav__menu">
+      <summary>menu</summary>
+      <ul>
+        {navigation.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+      </ul>
+    </details>
+  </nav>
+</header>
+
+<script>
+  // Close the mobile menu after picking a section.
+  document.querySelectorAll<HTMLDetailsElement>('.nav__menu').forEach((menu) => {
+    menu.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLAnchorElement) menu.open = false;
+    });
+  });
+</script>

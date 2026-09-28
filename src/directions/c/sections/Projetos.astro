@@ -1,0 +1,93 @@
+---
+import { projects } from '../../../content/projects';
+import { hostOf, splitOn, tilt } from '../lib';
+
+const [before, focus, after] = splitOn(projects.heading, projects.highlight);
+---
+
+<section class="section wrap projetos" id="projetos" aria-labelledby="projetos-title">
+  <header class="projetos__head" data-reveal>
+    <h2 class="section__title marker" id="projetos-title">
+      {projects.eyebrow}
+      <svg class="rough" data-rough="underline" data-color="teal" data-width="3" data-seed="91" data-with-parent aria-hidden="true" focusable="false"></svg>
+    </h2>
+    <p class="section__lead">{before}<mark class="hl">{focus}</mark>{after}</p>
+  </header>
+  <ul class="cards">
+    {projects.items.map((project, i) => (
+      <li class:list={['card', { 'card--feature': i === 0 }]} data-reveal style={`--r:${tilt(i + 1, 1.1)}; --d:${(i % 2) * 90}ms`}>
+        <span class="card__pin" aria-hidden="true"></span>
+        <article>
+          <header class="card__head">
+            <h3 class="card__name marker">{project.name}</h3>
+            <span class:list={['stamp', project.live ? 'stamp--live' : 'stamp--private']}>{project.status}</span>
+          </header>
+          <p class="card__context">{project.context}</p>
+          <p class="card__diff"><span class="card__label marker">diferencial:</span> {project.diferencial}</p>
+          <ul class="card__stack" aria-label={`Stack de ${project.name}`}>
+            {project.stack.map((item) => <li class="chip">{item}</li>)}
+          </ul>
+          {project.href && (
+            <a class="link-wavy card__link" href={project.href} rel="noopener" target="_blank">
+              {hostOf(project.href)} <span aria-hidden="true">↗</span><span class="visually-hidden">(abre em nova aba)</span>
+            </a>
+          )}
+        </article>
+      </li>
+    ))}
+    <li class="more" data-reveal style={`--r:${tilt(projects.items.length + 1, 0.8)}`}>
+      <ul class="more__list">
+        {projects.more.map((item) => (
+          <li>
+            <h3 class="more__name marker">{item.name}</h3>
+            <p class="more__body">{item.body}</p>
+            {item.href && (
+              <a class="link-wavy more__link" href={item.href} rel="noopener" target="_blank">
+                {hostOf(item.href)} <span aria-hidden="true">↗</span><span class="visually-hidden">(abre em nova aba)</span>
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<style>
+  .projetos__head { max-width: 760px; }
+  .cards { margin-top: clamp(48px, 6vw, 80px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 5vw, 64px) clamp(28px, 4vw, 48px); align-items: start; }
+  .card {
+    position: relative; padding: 40px clamp(24px, 3vw, 40px) 32px clamp(40px, 4vw, 60px); transform: rotate(var(--r));
+    background-color: #fffefa;
+    background-image:
+      linear-gradient(90deg, transparent calc(clamp(24px, 2.6vw, 38px) - 1px), rgba(255, 111, 174, 0.55) calc(clamp(24px, 2.6vw, 38px) - 1px), rgba(255, 111, 174, 0.55) clamp(24px, 2.6vw, 38px), transparent clamp(24px, 2.6vw, 38px)),
+      repeating-linear-gradient(transparent 0 31px, rgba(80, 130, 200, 0.28) 31px 32px);
+    background-position: 0 0, 0 12px;
+    box-shadow: 0 1px 0 rgba(22, 23, 27, 0.08), 8px 14px 26px -14px rgba(22, 23, 27, 0.38);
+    border-radius: 3px;
+  }
+  .card--feature { grid-column: 1 / -1; }
+  .card--feature article { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 8px 48px; }
+  .card--feature .card__head { grid-column: 1 / -1; }
+  .card--feature .card__name { font-size: clamp(34px, 3.6vw, 52px); }
+  .card__pin {
+    position: absolute; top: -10px; left: 50%; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ff9ac6, var(--pink) 45%, #c72e70); box-shadow: 2px 4px 4px rgba(22, 23, 27, 0.3);
+  }
+  .card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-bottom: 14px; }
+  .card__name { font-size: clamp(26px, 2.4vw, 34px); font-weight: 800; line-height: 1.15; }
+  .card__context { color: var(--ink); font-size: 17.5px; line-height: 1.6; }
+  .card__diff { margin-top: 12px; color: var(--ink-soft); line-height: 1.6; }
+  .card__label { font-weight: 700; color: var(--pink-ink); }
+  .card__stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .card__link { display: inline-block; margin-top: 20px; }
+  .more { padding: 32px clamp(24px, 3vw, 36px); border: 2.5px dashed rgba(22, 23, 27, 0.35); border-radius: var(--wobble-soft); transform: rotate(var(--r)); }
+  .more__list { display: grid; gap: 28px; }
+  .more__name { font-size: clamp(22px, 2vw, 27px); font-weight: 800; line-height: 1.2; }
+  .more__body { margin-top: 8px; color: var(--ink-soft); line-height: 1.6; }
+  .more__link { display: inline-block; margin-top: 10px; }
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: minmax(0, 1fr); }
+    .card--feature article { display: block; }
+  }
+</style>
