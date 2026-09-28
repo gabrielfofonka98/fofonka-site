@@ -50,6 +50,23 @@ test('sitemap lists only the home', () => {
   }
 });
 
+test('home ships Person JSON-LD with profile links', () => {
+  const raw = read('index.html').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)?.[1];
+  assert.ok(raw, 'missing JSON-LD');
+  const person = JSON.parse(raw);
+  assert.equal(person['@type'], 'Person');
+  assert.equal(person.url, `${SITE}/`);
+  assert.ok(person.sameAs.some((url) => url.includes('linkedin.com/in/')));
+});
+
+test('sitemap home entry has lastmod', () => {
+  assert.match(read('sitemap.xml'), /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/);
+});
+
+test('pages.dev hostname is noindex', () => {
+  assert.match(read('_headers'), /^https:\/\/:project\.pages\.dev\/\*\n  X-Robots-Tag: noindex$/m);
+});
+
 test('Cloudflare _headers and _redirects are published', () => {
   assert.ok(exists('_headers'));
   const redirects = read('_redirects');

@@ -4,9 +4,12 @@ import { meta } from '../content/meta';
 // Only the home is indexable; /c, /c2 and /d are noindex previews.
 const urls = [new URL('/', meta.siteUrl).toString()];
 
+// Each deploy ships new content, so the build date is the home's lastmod.
+const lastmod = new Date().toISOString().slice(0, 10);
+
 const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((loc) => `  <url><loc>${loc}</loc></url>`).join('\n')}
+${urls.map((loc) => `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n')}
 </urlset>
 `;
 
