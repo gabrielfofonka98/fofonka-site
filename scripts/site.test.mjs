@@ -65,6 +65,12 @@ test('CSP font-src allows the fonts Vite inlines as data: URIs', () => {
   }
 });
 
+test('CSP allows the Cloudflare Web Analytics beacon injected on the custom domain', () => {
+  const headers = read('_headers');
+  assert.match(headers, /script-src [^;]*https:\/\/static\.cloudflareinsights\.com/);
+  assert.match(headers, /connect-src [^;]*https:\/\/cloudflareinsights\.com/);
+});
+
 test('favicon and OG image are published', () => {
   assert.ok(exists('favicon.svg'));
   assert.ok(exists('og-image.png'));
