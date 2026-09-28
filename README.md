@@ -31,7 +31,7 @@ npm run test:site  # smoke tests sobre dist/ (rodar depois do build)
 
 ## Deploy
 
-GitHub Actions publica `dist/` no projeto `fofonka-site` do Cloudflare Pages a cada push na `main`.
+GitHub Actions publica `dist/` no projeto `fofonka-site` do Cloudflare Pages: push na `main` vai para produção; push em `feat/**` gera um preview em `<branch>.fofonka-site.pages.dev`.
 
 ## Rollback
 
