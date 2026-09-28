@@ -57,6 +57,14 @@ test('Cloudflare _headers and _redirects are published', () => {
   assert.match(redirects, /^\/og\.png \/og-image\.png 301$/m);
 });
 
+test('CSP font-src allows the fonts Vite inlines as data: URIs', () => {
+  const fontSrc = read('_headers').match(/font-src ([^;]+)/)?.[1] ?? '';
+  const pages = ['index.html', 'c.html', 'c2.html', 'd.html', '404.html'];
+  if (pages.some((page) => read(page).includes('url(data:font/'))) {
+    assert.match(fontSrc, /(^|\s)data:(\s|$)/);
+  }
+});
+
 test('favicon and OG image are published', () => {
   assert.ok(exists('favicon.svg'));
   assert.ok(exists('og-image.png'));
